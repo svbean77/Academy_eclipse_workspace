@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>직원 정보 등록</title>
+<style>
+	
+</style>
+</head>
+<body>
+	<h1>직원 정보 입력 (선생님이 만듦)</h1>
+	<form  action="empInsert.jsp">
+		<table>
+			<tr>
+				<td>직원번호</td>
+				<td><input name="employee_id" type="number" placeholder="직원번호필수" placeholder="직원 번호는 시퀀스가 알아서~" value="999" autofocus></td>
+			</tr>
+			<tr>
+				<td>firstName</td>
+				<td><input name="first_name" type="text" maxlength="20"></td>
+			</tr>
+			<tr>
+				<td>lastName</td>
+				<td><input name="last_name" type="text" required></td>
+			</tr>
+			<tr>
+				<td>이메일</td>
+				<td><input name="email" type="email" required></td>
+			</tr>
+			<tr>
+				<td>phone</td>
+				<td><input name="phone_number" type="tel" pattern="010-[0-9]{4}-[0-9]{4}"></td>
+			</tr>
+			<tr>
+				<td>salary</td>
+				<td><input name="salary" type="number"></td>
+			</tr>
+			<tr>
+				<td>부서</td>
+				<td><input name="department_id" type="number" value="60"></td>
+			</tr>
+			<tr>
+				<td>매니저</td>
+				<td><input name="manager_id" type="number" value="100"></td>
+			</tr>
+			<tr>
+				<td>커미션</td>
+				<td><input name="commission_pct" type="text"></td>
+			</tr>
+			<tr>
+				<td>입사일</td>
+				<td><input name="hire_date" type="date" required></td>
+			</tr>
+			<tr>
+				<td>직급</td>
+				<td><input name="job_id" type="text" value="IT_PROG" required></td>
+			</tr>
+			<tr style="text-align: center;">
+				<td colspan="2">
+					<input type="submit" value="직원등록">
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

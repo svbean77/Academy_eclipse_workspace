@@ -1,0 +1,120 @@
+<!doctype html>
+
+<html lang="ko">
+  <head>
+		<meta charset="utf-8">
+		<title> 웹 폼</title>
+    <style>
+		 label {
+			font-size:14px; /* 글자 크기 */
+			line-height:25px;  /* 줄 간격 */
+		 }
+		 label em{
+			color:red;  /* 글자색 */
+			font-weight:800; /* 글자 굵기 */ 
+		 }
+	 </style>
+  </head>
+  <body>
+	<form action="aa.jsp"> <!-- submit이 되는지만 보려고 이상한 jsp 만들어본거 실제로는 없는 파일임 -->
+    <fieldset>
+    	<label>아이디: <input type="text" id="user_id" size="10"></label>
+      <label>비밀번호: <input type="password" id="user_pw" size="10"></label>
+      <input type="submit" value="로그인">
+    </fieldset>
+    <hr>
+    <fieldset>
+    	1. 생략: <input autofocus> <br> <!-- autofocus: 페이지를 시작하자마자 포커스 -->
+    	2. text: <input type="text" placeholder="이름을 입력"><br> <!-- placeholder: 입력에 대한 설명 -->
+    	3. hidden: <input type="hidden"><br>
+    	4. password: <input type="password"><br>
+    	5. email: <input type="email" value="user@email.com" readonly><br> <!-- readonly: 입력 수정 불가능 -->
+    	6. tel: <input type="tel" pattern="010-[0-9]{4}-[0-9]{4}" placeholder="전화번호: 필수 입력" required><br> <!-- required: 입력하지 않으면 제출 불가능 -->
+    	7. url: <input type="url"><br>
+    	8. search: <input type="search"><br>
+    	9. number: <input type="number" min="1" max="10" value="5"><br>
+    	10. range: <input type="range" min="1" max="10" value="5"><br>
+    	11. radio: 
+    		남자<input type="radio" value="M" name="gender" checked="checked"> <!-- default로 체크되어있는 값: checked -->
+    		여자<input type="radio" value="F" name="gender">
+    		<span> ** 다른 선택! ** </span>
+    		컴공<input type="radio" value="A" name="major">
+    		정통<input type="radio" value="B" name="major">
+    		생명<input type="radio" value="C" name="major"><br>
+    		<!-- 배타적이기 때문에 '이름'을 같게 줘야 함!!!!!! -->
+    	12. checkbox: 
+    	<!-- id: front에서 사용, name: back에서 사용! -->
+    		<label for="zza">짜장면</label><input id="zza" type="checkbox" value="짜장면" name="lunch">
+    		<!-- id, for로 연결함으로써 이름을 눌러도 체크 됨!!!! -->
+    		<label>순대국<input type="checkbox" value="E" name="lunch"></label>
+    		<!-- label로 전체를 감싸는 것도 가능!! (이름 눌러도 체크) -->
+    		김밥<input type="checkbox" value="F" name="lunch"><br>
+    		<!-- 서버에서 값을 읽어야 하기 때문에 name을 적어줘야 함 (저 그룹에서 선택된 체크박스구나!) -->
+    	13. color:<input type="color"><br>
+    	14. date: <input type="date"><br>
+    	15. datetime-local: <input type="datetime-local"><br>
+    	16. month: <input type="month"><br>
+    	17. week: <input type="week"><br>
+    	18. reset: <input type="reset" value="초기화하기"><br>
+    	19. image: <input type="image" src="images/login.jpg"><br>
+    	<hr>
+    	20: select
+    		<select name="lunch2">
+    			<option value="zza">짜장면</option> <!-- value를 주면 value 값, 아니면 선택 (짜장면)과 같은 값 -->
+    			<option>짬뽕</option>
+    			<option>탕수육</option>
+    			<option>스시</option>
+    			<option selected>라면</option> <!-- default 선택값 -->
+    		</select>
+    		<select multiple="multiple">
+    			<option>짜장면</option>
+    			<option selected>짬뽕</option>
+    			<option>탕수육</option>
+    			<option selected>스시</option>
+    			<option>라면</option>
+    		</select>
+    		
+    		<hr>
+    		21: datalist
+    		<span class="reg">관심분야</span>
+					<label for="interest"></label>
+					<input type="text" id="interest" list="choices">
+					<datalist id="choices">
+						<option value="grammar" label="문법"></option>
+						<option value="voca" label="어휘"></option>
+						<option value="speaking" label="회화"></option>
+						<option value="listening" label="리스닝"></option>
+						<option value="news" label="뉴스청취"></option>
+					</datalist><br> 
+					<!-- datalist: 초기 값이 없음! 눌러야 선택이 나와 -->
+			<hr>
+			22: textarea
+			<textarea rows="10" cols="100"></textarea>		<br>
+			23: button
+			<input type="button" value="input(button)버튼">
+			<input type="image" src="images/login.jpg">
+			<input type="submit" value="input(submit)버튼">
+			<input type="reset" value="input(reset)버튼">
+			<button>button버튼(안)</button> <!-- form 태그 안에 button을 작성하면 submit과 동일함! 하지만 submit을 더 많이 씀, form 전송 등은 submit 사용 -->
+    </fieldset>
+  </form>
+  <form oninput="result.value=parseInt(num1.value)+parseInt(num2.value)">
+  	24. output
+	<input type="number" name="num1" value="0">+
+	<input type="number" name="num2" value="0">=
+	<output name="result"></output><br>
+	25. progress
+	<progress value="30" max="100"></progress>
+  </form>
+  <hr>
+  <button>button버튼(밖)</button> <!-- 아무것도 없이 form 밖에 만든 button은 그냥 모양만 button임.. 뭐 없어 -->
+  <button onclick="call()">JS 연습</button> <!-- JS가 필요한 경우 button 사용 -->
+  <script>
+  // 짜장면 (id=zza)을 front에서 읽어보자!!!
+  	function call() {
+	  var a = document.getElementById("zza");
+	  alert(a.value);
+  }
+  </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>HTML5 폼</title>
+</head>
+<body>
+	<form action="search.php" method="post">
+		<h1>form 연습입니다~ (나는 block 요소야)</h1>
+		<img src="images/login.jpg"> <img src="images/login.jpg">
+		<!-- 이미지 두 개가 나란히 보인다 -> 이미지도 inline 요소구나! -->
+		입력: <input type="text" title="검색" value="나는 inline 요소야~">
+		<!-- 글로 쓰면 나중에 꾸미고싶을 때 어려워 -> 정확한 영역을 정해주는 것이 좋음 = label -->
+		<br>
+		<!-- 입력들의 줄을 바꾸고 싶다 -> 바람직하지 않은 디자인: 억지로 줄을 바꾼거잖아 -->
+		<ul>
+			<li><label>입력1:</label> <input type="text" title="검색"
+				value="aaa"></li>
+			<!-- label로 이름의 영역을 정해줌! -->
+			<li><label>입력2:</label> <input type="text" title="검색"
+				value="bbb"></li>
+		</ul>
+		<!-- 교재에서는 줄을 바꾸기 위해 ul, li 요소를 사용해 봄 -> ul, li가 block 요소야!!! -->
+		<input type="submit" value="검색">
+	</form>
+</body>
+</html>
