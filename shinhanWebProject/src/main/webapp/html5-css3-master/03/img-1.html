@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>이미지 삽입하기</title>
+</head>
+<body>
+	<h1>바빠 시리즈</h1>
+	<img src="images/cover.jpg" alt="빠른연산 상대경로">
+	<!-- 이미지 오류가 뜨면 alt가 대신 나옴! 이런 것 때문에 alt는 꼭 써라 이미지에 대한 설명이잖아 -->
+	<!-- 이미지 경로를 절대경로로 써보자!!! (webapp부터 써야 함) -->
+	<img src="/shinhanWebProject/html5-css3-master/03/images/cover.jpg"
+		alt="빠른연산 절대경로1">
+	<img
+		src="http://localhost:9999/shinhanWebProject/html5-css3-master/03/images/cover.jpg"
+		alt="빠른연산 절대경로2">
+	<!-- 포트번호 등의 정보가 바뀔 수 있기 때문에 절대경로2는 좋은 방법이 아님.. -->
+
+	<!-- 절대1이 제일 좋은 방법! 하지만 webapp 경로를 가변으로 받아와야 함 -->
+
+	<!-- quiz! 현재(03) 폴더에서 다른 폴더(images)에 있는 사진을 불러오자! -->
+	<!-- 절대경로 -->
+	<img src="/shinhanWebProject/html5-css3-master/images/muffin.png"
+		alt="맛있는 머핀">
+	<!-- 상대경로 -->
+	<img src="../images/muffin.png" alt="머핀이다" width="100" height="100">
+	<!-- 이미지를 억지로 줄이고 늘리는 것은 바람직하지 않는 방법! 현재 모습 그대로 보이는 게 좋다! -->
+</body>
+</html>
