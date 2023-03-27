@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/day1/loginConfirm") // html의 경로가 day1/login이기 때문에 얘도 day1/로 만들어야 함@
+@WebServlet("/day22/loginConfirm") // html의 경로가 day1/login이기 때문에 얘도 day1/로 만들어야 함@
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
