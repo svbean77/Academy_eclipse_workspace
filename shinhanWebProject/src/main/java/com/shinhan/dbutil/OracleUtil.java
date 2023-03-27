@@ -1,3 +1,5 @@
+// day015 05 - f1()
+// DB 연결, 해제하는 코드가 항상 같으니까 클래스로 만들자
 package com.shinhan.dbutil;
 
 import java.sql.Connection;

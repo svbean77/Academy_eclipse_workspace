@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>직원 정보 등록</title>
+<style>
+	li {
+		list-style: none;
+	}
+</style>
+</head>
+<body>
+	<h1>직원의 정보를 등록해보자! (범기님)</h1>
+	<form>
+		<ul>
+			<li>EMPLOYEE_ID<input type="number"></li>
+			<li>FIRST_NAME<input type="text"></li>
+			<li>LAST_NAME<input type="text"></li>
+			<li>EMAIL<input type="email"></li>
+			<li>PHONE_NUMBER<input type="tel"
+				pattern="010-[0-9]{4}-[0-9]{4}" placeholder="010-1234-1234"></li>
+			<li>HIRE_DATE<input type="date"></li>
+			<li>JOB_ID<input type="text"></li>
+			<li>SALARY<input type="number"></li>
+			<li>COMMISSION_PCT<input type="number"></li>
+			<li>MANAGER_ID<input type="number"></li>
+			<li>DEPARTMENT_ID<input type="number"></li>
+		</ul>
+		<input type="submit" value="등록">
+	</form>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 04 -->
+	<h1>로그인 하기</h1>
+	<!-- 
+	form의 method: 종류가 2가지 
+	1. get 방식: 주소창에서 요청, <a>로 요청, form의 method="get" or 생략이면 get 방식
+	-> 주소 창에 서버로 전달하는 정보가 다 보임, 한글은 자동으로 인코딩 됨 
+	2. post 방식: form의 method="post"
+	-> 요청 문서의 body에 숨겨 서버에 전송됨
+	-->
+	<h2>get 요청</h2>
+	<a href="loginConfirm?userid=aa&userpass=1234">Get 요청이다</a>
+	<!-- get 요청은 주소창에 정보가 다 보임 -> 우리가 보내줘야 할 요소들을 링크에 함께 보내면 됨! -->
+	<form action="loginConfirm" method="get">
+		<!-- 현재 경로 뒤에 붙는 경로임! -->
+		아이디: <input name="userid" type="text"> 비밀번호: <input
+			name="userpass" type="password"> <input type="submit"
+			value="서버로 전송 (get)">
+		<!-- 
+		서버로 데이터를 전송하려면 input의 type이 submit이어야 함
+		submit: form의 정보를 서버에 전송한다.
+		 -->
+	</form>
+	<hr>
+	<h2>post 요청</h2>
+	<form action="loginConfirm" method="post">
+		아이디: <input name="userid" type="text"> 비밀번호: <input
+			name="userpass" type="password"> <input type="submit"
+			value="서버로 전송 (post)">
+	</form>
+</body>
+</html>
