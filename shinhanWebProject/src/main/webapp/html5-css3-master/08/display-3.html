@@ -20,6 +20,20 @@
 					color: white;
 					text-decoration: none;
 			}
+			nav ul li:hover {
+				background-color: gray;
+			}
+			h2 {
+				border: 1px solid red;
+			}
+			h2.none {
+				/* 보이지 않을뿐만 아니라 자리 차지도 하지 않음! */
+				display: none;
+			}
+			h2.hidden {
+				/* 보이지 않는데 자리는 차지 함 */
+				visibility: hidden;
+			}
 		</style>
 	</head>
 	<body>
@@ -30,7 +44,9 @@
 				<li><a href="#">건강돌보기</a></li>
 				<li><a href="#">더불어살기</a></li>
 			</ul>
-			<h2>애완견 종류</h2>
+			<h2 class="none">애완견 종류1</h2>
+			<h2 class="hidden">애완견 종류2</h2>
+			<h2 class="display">애완견 종류3</h2>
 		</nav>
 	</body>
 </html>

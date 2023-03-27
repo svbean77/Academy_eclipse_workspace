@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>W3C 따라하기</title>
+<style>
+/*
+position: static, relative, absolute, fixed
+- static을 제외하고는 위치 변경 가능
+- relative: 내가 기준
+- absolute: 부모(relative)가 기준 (없으면 문서)
+- fixed: 문서가 기준
+*/
+div.relative {
+	position: relative;
+	width: 400px;
+	height: 200px;
+	border: 3px solid #73AD21;
+}
+
+div.absolute {
+	position: absolute;
+	top: 80px;
+	right: 0;
+	width: 200px;
+	height: 100px;
+	border: 3px solid #73AD21;
+}
+</style>
+</head>
+<body>
+	<!-- WSC의 CSS position absolute 예제 따라하기 -->
+	<h2>position: absolute;</h2>
+
+	<p>An element with position: absolute; is positioned relative to
+		the nearest positioned ancestor (instead of positioned relative to the
+		viewport, like fixed):</p>
+
+	<div class="relative">
+		This div element has position: relative;
+		<div class="absolute">This div element has position: absolute;</div>
+	</div>
+
+</body>
+</html>

@@ -4,75 +4,105 @@
 <meta charset="UTF-8">
 <title>직원 정보 등록</title>
 <style>
-	li {
-		list-style: none;
-	}
-	
-	label {
-		display: inline-block;
-		width: 100px;
-	}
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Jeju Gothic', sans-serif;
+}
+table, tr, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+table {
+	margin: 0px auto;
+}
+h1 {
+	text-align: center;
+	margin: 20px 0px;
+}
+tr, td {
+	padding: 15px 25px;
+}
+.title {
+	font-size: 20px;
+	font-weight: bold;
+}
+#container {
+	margin: 20px auto;
+	width: 500px;
+}
+input {
+	border: none;
+}
+input:focus {
+	padding: 7px;
+	outline-style: none;
+	border: 3px solid lightgreen;
+	border-radius: 10px;
+	margin: 0px;
+}
 </style>
 </head>
 <body>
-	<h1>직원의 정보를 등록해보자! (내가 만듦)</h1>
-	<form action="empInsert.jsp">
-		<fieldset>
-			<legend>개인 정보</legend>
-			<ul>
-				<li>
-					<label for="employee_id">직원 번호:</label>
-					<input id="employee_id" type="number" name="employee_id" placeholder="직원 번호는 시퀀스가 알아서~" value="999" readonly>
-				</li>
-				<li>
-					<label for="first_name">first name:</label>
-					<input id="first_name" type="text" name="first_name" maxlength="20" autofocus>
-				</li>
-				<li>
-					<label for="last_name">last name:</label>
-					<input id="last_name" type="text" name="last_name" required>
-				</li>
-				<li>
-					<label for="email">email:</label>
-					<input id="email" type="email" name="email" required>
-				</li>
-				<li>
-					<label for="phone_number">phone:</label>
-					<input id="phone_number" type="tel" pattern="010-[0-9]{4}-[0-9]{4}" placeholder="예) 010-0000-0000" name="phone_number"
-					value="010-0000-0000">
-				</li>
-			</ul>
-		</fieldset>
-		<fieldset>
-			<legend>직장 정보</legend>
-			<ul>
-				<li>
-					<label for="hire_date">hire date</label>
-					<input id="hire_date" type="date" name="hire_date" value="2021-01-01" required>
-				</li>
-				<li>
-					<label for="job_id">job id</label>
-					<input id="job_id" type="text" name="job_id" value="IT_PROG" required>
-				</li>
-				<li>
-					<label for="salary">salary</label>
-					<input id="salary" type="text" name="salary">
-				</li>
-				<li>
-					<label for="commission_pct">커미션</label>
-					<input id="commission_pct" type="text" name="commission_pct" value="0.2">
-				</li>
-				<li>
-					<label for="manager_id">매니저</label>
-					<input id="manager_id" type="number" name="manager_id" value="100">
-				</li>
-				<li>
-					<label for="department_id">부서</label>
-					<input id="department_id" type="number" name="department_id" value="60">
-				</li>
-			</ul>
-		</fieldset>
-		<input type="submit" value="정보 등록">
-	</form>
+	<div id="container">
+		<h1>직원정보 입력 (선생님이 만듦)</h1>
+		<form action="empInsert.jsp">
+			<table border="1">
+				<tr>
+					<td class="title">직원번호</td>
+					<td><input type="number" name="employee_id"
+						required="required" placeholder="직원번호필수"></td>
+				</tr>
+				<tr>
+					<td class="title">firstName</td>
+					<td><input type="text" name="first_name"></td>
+				</tr>
+				<tr>
+					<td class="title">LastName</td>
+					<td><input type="text" name="last_name" required="required"></td>
+				</tr>
+				<tr>
+					<td class="title">이메일</td>
+					<td><input type="email" name="email" required="required"></td>
+				</tr>
+				<tr>
+					<td class="title">phone</td>
+					<td><input type="tel" name="phone_number"
+						pattern="010-[0-9]{4}-[0-9]{4}" value="010-1111-1111"></td>
+				</tr>
+				<tr>
+					<td class="title">salary</td>
+					<td><input type="number" name="salary"></td>
+				</tr>
+				<tr>
+					<td class="title">부서</td>
+					<td><input type="number" name="department_id" value="60"></td>
+				</tr>
+				<tr>
+					<td class="title">매니저</td>
+					<td><input type="number" name="manager_id"></td>
+				</tr>
+				<tr>
+					<td class="title">커미션</td>
+					<td><input type="text" name="commision_pct"></td>
+				</tr>
+				<tr>
+					<td class="title">입사일</td>
+					<td><input type="date" name="hire_date" required="required"
+						value="2023-01-01"></td>
+				</tr>
+				<tr>
+					<td class="title">직급</td>
+					<td><input type="text" name="job_id" required="required"
+						value="IT_PROG"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="직원등록"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </body>
 </html>

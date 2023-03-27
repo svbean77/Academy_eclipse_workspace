@@ -21,7 +21,23 @@
 		}
 		.box4 {
 			background:#a874ff;
-			clear:both;
+			clear:both; /* float에 영향을 미치지 않음 */
+		}
+		
+		ul {
+			border: 1px solid red;
+			list-style-type: none;
+			overflow: hidden; /* li를 float으로 바꾸며 ul이 차지하는 영역이 사라짐 (contents가 하나도 없으니까! li가 ul의 범위를 벗어났잖아)
+								-> ul이 새로운 영역을 만들어 li가 ul의 공간 안으로 들어온 것처럼 사용하기 위해 overflow를 hidden으로 줌!  
+								== float 요소까지 포함시키는 새로운 block 생성~
+			 					*/
+			padding: 10px;
+		}
+		ul li {
+			border: 1px solid blue;
+			float: left; /* 왼쪽으로 부상하다 (띄운다) */
+			padding: 10px;
+			margin-right: 10px;
 		}
 	</style>
 </head>
@@ -30,5 +46,13 @@
 	<div class="box2">박스2</div>
 	<div class="box3">박스3</div>
 	<div class="box4">박스4</div>
+	
+	<hr>
+	
+	<ul>
+		<li>HTML</li>
+		<li>CSS</li>
+		<li>JavaScript</li>
+	</ul>
 </body>
 </html>

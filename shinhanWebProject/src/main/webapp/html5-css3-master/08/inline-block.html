@@ -1,12 +1,33 @@
 <!doctype html>
 <html lang="ko">
-	<head>
-		<meta charset="utf-8">
-		<title>블록 레벨과 인라인 레벨</title>
-	</head>
-	<body>
-		<h1>시간이란...</h1>
-		<p>내일 죽을 것처럼 오늘을 살고 </p>
-		<p>영원히 살 것처럼 <span style="color:red">내일을 꿈꾸어라.</span> </p>	  
+<head>
+<meta charset="utf-8">
+<title>블록 레벨과 인라인 레벨</title>
+<style>
+	a {
+		border: 1px solid red;
+		background-color: orange;
+		padding: 10px;
+		text-decoration: none;
+		/* width, align을 주기 위해 block처럼 사용!!!! */
+		/* display: inline-block; */
+		display: block; /* 얘는 그냥 한 줄을 차지 */
+		width: 300px;
+		text-align: center;
+	}
+</style>
+</rgb(255, 0, 0)d>
+<body>
+	<h1>시간이란...</h1> <!-- h: block -->
+	<p>내일 죽을 것처럼 오늘을 살고</p> <!-- p: block -->
+	<p>
+		영원히 살 것처럼 <span style="color: red"> <!-- span: inline -->
+		내일을 꿈꾸어라.</span>
+	</p>
+	<a href="https://www.daum.net">Daum 사이트로 이동</a> <!-- a: inline -->
+	<a href="https://www.naver.com">Naver 사이트로 이동</a>
+	<img src="images/pet.png" alt="강아지1"> <!-- img: inline -->
+	<img src="images/pet.png" alt="강아지2">
+	<img src="images/pet.png" alt="강아지3">
 </body>
 </html>

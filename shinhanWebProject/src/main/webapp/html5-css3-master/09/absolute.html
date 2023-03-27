@@ -5,13 +5,13 @@
 	<title>CSS 포지셔닝</title>
 	<style>
 		#wrap{
-			position:relative;
+			position:relative; /* id가 wrap인 div를 기준으로 위치를 지정하겠다 -> relative 하지 않으면 body가 기준이 됨.. */
 			width:300px;
 			height:300px;
 			border:1px solid #ccc;
 		}
 		.box{
-			position:absolute;
+			position:absolute; /* 나와 가장 가까운 relative를 기준으로 위치 설정 */
 			width:50px;
 			height:50px;
 			background:#0094ff;
