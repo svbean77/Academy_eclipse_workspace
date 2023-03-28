@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="external.js"></script>
+<script>
+	function call2() {
+		// 같은 이름이 여러 개 있으면 나중에 있는 함수가 호출됨.. 순서가 중요!
+		// 같은 이름의 함수가 있는 경우 나중것이 유효
+		document.querySelector("#here").innerHTML = 30 > 20 > 10;
+		document.querySelector("#here").innerHTML += "<br>" + (30 > 20);
+		document.querySelector("#here").innerHTML += "<br>" + (true > 10);
+		document.querySelector("#here").innerHTML += "<br>"
+				+ (30 > 20 && 20 > 10); // 올바른 방법
+
+		document.getElementById("here").innerHTML += "<br>~!";
+	}
+
+	function call3() {
+		document.getElementById("here").innerHTML += "<br>" + a + ": "
+				+ typeof (a); // 호이스팅 -> var 변수를 맨 위로 올림
+		// not define은 오류, undefined는 타입 (오류가 아님!)
+
+		var a; // 변수가 지역 변수로 선언되고 초기값은 undefined
+		var a = 100; // 변수가 지역 변수로 선언되고 초기값은 undefined
+
+		document.getElementById("here").innerHTML += "<br>" + a + ": "
+				+ typeof (a);
+	}
+
+	function call4() {
+		var age = prompt("나이를 입력 >> ", 20); // 초기로 20이 입력되어 있었으면 좋겠다
+		document.getElementById("here").innerHTML = "당신의 만 나이는 " + (age - 2);
+	}
+
+	function call5() {
+		var result = confirm("계속하시겠습니까?");
+		document.getElementById("here").innerHTML = result ? "OK~"
+				: "Noooo....";
+	}
+
+	function call6() {
+		var age = "20";
+		var age2 = '20살';
+		document.getElementById("here").innerHTML = Number(age) + 10;
+		document.getElementById("here").innerHTML += "<br>";
+		// document.getElementById("here").innerHTML += Number(age2) + 10;
+		document.getElementById("here").innerHTML += parseInt(age2) - 10; // parseInt: 숫자만 숫자로 바꿔줌!
+	}
+
+	function call7() {
+		document.getElementById("here").innerHTML = "0: " + Boolean(0);
+		document.getElementById("here").innerHTML += "<br>'': " + Boolean(''); // 빈 문자열은 false
+		document.getElementById("here").innerHTML += "<br>null: "
+				+ Boolean(null);
+		document.getElementById("here").innerHTML += "<br>undefined: "
+				+ Boolean(undefined);
+		document.getElementById("here").innerHTML += "<br>NaN: " + Boolean(NaN);
+		document.getElementById("here").innerHTML += "<br>' ': " + Boolean(' '); // '공백'은 true
+	}
+
+	function call8() {
+		var a = 100;
+		var b = "100";
+		document.getElementById("here").innerHTML = "a == b: " + (a == b);
+		document.getElementById("here").innerHTML += "<br>a === b: "
+				+ (a === b);
+	}
+
+	function call9() {
+		var num = Number(prompt("숫자를 입력", 0));
+		var result;
+
+		if (num == 0) {
+			result = "0이다";
+		} else if (num > 0) {
+			result = "양수다";
+		} else {
+			result = "음수다";
+		}
+
+		document.querySelector("#here").innerHTML = num + "은 " + result;
+	}
+
+	function call10() {
+		var num = Number(prompt("숫자를 입력", 0));
+		var result;
+
+		if (num === 0) {
+			result = "0이다";
+		} else if (num % 2 === 0) {
+			result = "짝수다";
+		} else {
+			result = "홀수다";
+		}
+
+		document.querySelector("#here").innerHTML = num + "은 " + result;
+	}
+
+	function call11() {
+		var k = Number(prompt("국어 점수 입력"));
+		var e = Number(prompt("영어 점수 입력"));
+		var m = Number(prompt("수학 점수 입력"));
+
+		var avg = (k + e + m) / 3;
+		
+		var result;
+
+		if (avg >= 90) {
+			result = "수";
+		} else if (avg >= 80) {
+			result = "우";
+		} else if (avg >= 70) {
+			result = "미";
+		} else if (avg >= 60) {
+			result = "양";
+		} else {
+			result = "가";
+		}
+		
+		document.querySelector("#here").innerHTML = "평균 점수: " + avg + ", 등급: " + result;
+	}
+</script>
+</head>
+<body>
+	<h1>JS 문법</h1>
+	<button onclick="call()">외부 함수 사용 (.js)</button>
+	<button onclick="call2()">비교 연산자, 논리 연산자</button>
+	<button onclick="call3()">undefined</button>
+	<button onclick="call4()">prompt</button>
+	<button onclick="call5()">confirm</button>
+	<button onclick="call6()">number</button>
+	<button onclick="call7()">boolean</button>
+	<button onclick="call8()">일치 연산자 (==, ===)</button>
+	<!-- 3장 p.9 문제 -->
+	<button onclick="call9()">LAB1</button>
+	<button onclick="call10()">LAB2</button>
+	<button onclick="call11()">LAB3</button>
+	<hr>
+
+	<div id="here">여기</div>
+</body>
+</html>

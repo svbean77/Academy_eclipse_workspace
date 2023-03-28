@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	// 변수: 선언 없이 사용 가능
+	// 동적 typeing: 값을 넣었을 때 값의 타입으로 선언됨
+	a = 10; // 숫자 넣었기 때문에 자동으로 숫자형
+	console.log(a, typeof a);
+	a = "hello"; // 문자열을 넣었기 때문에 자동으로 문자형
+	console.log(a, typeof a);
+	a = 'hello'; // 문자열을 넣었기 때문에 자동으로 문자형
+	console.log(a, typeof a);
+	score = 100;
+	a = `hello ${score}`; // 문자열을 넣었기 때문에 자동으로 문자형 -> 백틱을 사용하면 변수 사용 가능
+	console.log(a, typeof a);
+	a = true; // 자동으로 boolean
+	console.log(a, typeof a);
+	a = [1, 2, 3, 4, 5]; // 자동으로 배열
+	console.log(a, typeof a);
+	a = function () {} // 자동으로 함수
+	console.log(a, typeof a);
+	a = {"name": "홍길동", age: 20}; // 자동으로 object
+	console.log(a, typeof a);
+	
+	alert(a);
+</script>
+</head>
+<body>
+	<h1>JavaScript 문법</h1>
+</body>
+</html>

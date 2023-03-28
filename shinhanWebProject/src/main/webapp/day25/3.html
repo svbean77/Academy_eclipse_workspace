@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	a1 = 100; // 밖에서 선언된 변수는 (global) -> 함수를 실행하지 않아도 올라감
+	var b = 300; // global
+
+	// 변수를 선언했지만 값이 초기화되지는 않음 = undefined
+	console.log(c); // 호이스팅(var로 선언된 변수를 가장 위로 올림 -> c는 일단 올리고 값은 모르니까 undefined)
+	call1(); 
+	
+	function call1() {
+		a2 = 200; // 실행 시 a가 선언되고 값이 할당됨 (global) -> 함수를 실행하면 올라감
+		var b2 = 400; // var이 붙었는데 함수 안이면 local 
+		
+		console.log(a2 + b2);
+	}
+	
+	function call2() {
+		document.querySelector("#here").innerHTML = a1 + a2 + c;
+	}
+	
+	var c = 1000; // global
+	console.log(c); // 값 할당 이후이기 때문에 출력
+	
+	function call3() {
+		const pi = 3.141592;
+		// pi = 3.14; // 상수는 변경 불가능
+		
+		
+		var score = 100;
+		score++;
+		
+		var str = "<ul>";
+		for(let i = 1; i <= 10; i++) {
+			// let: block 내에서만 유효함
+			str += `<li>숫자는 ${i}</li>`;
+		}
+		// str += "<li>빠져나간 숫자는 " + i + "</li>"; // global, var이면 접근 가능
+		str += "</ul>";
+		
+		document.querySelector("#here").innerHTML = "pi: " + pi + "<br>score: " + score + str;
+		// 출력시 마지막만 바꿀 수 있도록 이 방법이 제일 좋아
+	}
+</script>
+</head>
+<body>
+	<h1>JS 문법</h1>
+	<button onclick="call1()">변수선언1</button>
+	<button onclick="call2()">변수선언2</button> <!-- call1()을 부르지 않은 상태에서 누르면 에러! -->
+	<button onclick="call3()">변수선언3</button> 
+	<hr>
+	
+	<div id="here">여기</div>
+</body>
+</html>

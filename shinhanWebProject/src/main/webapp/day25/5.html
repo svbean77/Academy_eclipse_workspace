@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- html 주석 -->
+<script>
+// JS 주석1
+/* JS 주석2 */
+</script>
+<style>
+/* inline, internal, external */
+h1 {
+	background: orange;
+}
+</style>
+</head>
+<body>
+	<h1 style="color: blue;">JS 문법 (반복문)</h1>
+	<button id="btn1">for문</button> <!-- 여기에 onclick="함수()" 쓰는 것은 inline임! -->
+	<button id="btn2">for문2</button> 
+	<button id="btn3">for in문</button> 
+	<button id="btn4">for of문</button> 
+	<hr>
+	<div id="here">여기</div>
+	
+	<script>
+		// HTML에서는 구조만 있는게 좋아 -> CSS, JS는 최대한 따로 빼서 사용!!!!!!
+		// HTML에서 inline을 쓰는 것은 바람직한 방법은 아니야
+		var target = document.querySelector("#here");
+		document.querySelector("#btn1").onclick = call; // 함수 호출이 아니고 이 함수다!라고 알려주는 것이기 때문에 ()는 없어 == callback 함수
+		document.querySelector("#btn2").onclick = call2;
+		document.querySelector("#btn3").onclick = call3;
+		document.querySelector("#btn4").onclick = call4;
+		
+		function call() {
+			target.innerHTML = "For문 연습!";
+			// JS는 여러 타입을 배열에 저장 가능 (자바는 같은 타입만)
+			// 타입 종류 = number, string ,boolean, undefined, function, object
+			var arr = [100, 3.14, "JS", 10>20, function(){ alert("나는 함수이다"); }, [10,20,30], {"이름":"홍길동",age:20}];
+			
+			for(let i = 0; i < arr.length; i++) {
+				target.innerHTML += "<br>" + arr[i] + ' --- ' + typeof arr[i];
+				if(typeof(arr[i]) === "function") {
+					arr[i](); // ()에 의해 함수가 실행
+				}
+				if(i == arr.length - 1) {
+					alert(arr[i].이름);
+				}
+			}
+		}
+		
+		function call2() {
+			var now = new Date().getTime(); // 현재 시각을 long으로 반환
+			var num = 1;
+			for(var i = 0; new Date().getTime() < now+1000; i++) {} // 1초 돌림
+			
+			alert("초 당 연산: " + i);
+		}
+		
+		function call3() {
+			target.innerHTML = "For in문 연습!";
+			// JS는 여러 타입을 배열에 저장 가능 (자바는 같은 타입만)
+			// 타입 종류 = number, string ,boolean, undefined, function, object
+			var arr = [100, 3.14, "JS", 10>20, function(){ alert("나는 함수이다"); }, [10,20,30], {"이름":"홍길동",age:20}];
+			
+			for(let i in arr) {
+				target.innerHTML += "<br>" + arr[i] + ' --- ' + typeof arr[i];
+				if(typeof(arr[i]) === "function") {
+					arr[i](); // ()에 의해 함수가 실행
+				}
+				if(i == arr.length - 1) {
+					alert(arr[i].이름);
+				}
+			}
+		}
+		
+		function call4() {
+			var arr = [100, 200, 300];
+			var sum = 0;
+			
+			for(let data of arr) {
+				sum += data;	
+			}
+			
+			alert(`합은 ${sum}`);
+		}
+	</script>
+</body>
+</html>
