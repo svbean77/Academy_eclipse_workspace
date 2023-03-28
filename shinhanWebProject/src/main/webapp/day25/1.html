@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JS 시작!</title>
+<script>
+	// body를 실행하기 전 필요한 코드들 -> 오래 걸리는 일은 여기서 쓰면 안돼.. 페이지 로딩도 안되고 흰 화면만 나와
+	console.log("1. head에 추가한 script.. 여기는 많이 사용");
+	// alert("1. head에 추가한 alert");
+	document.querySelector("#here").innerHTML="@_@"; // body가 load되지 않았었기 때문에 변경 불가능
+</script>
+</head>
+<body>
+	<!-- html 문서에 JavaScript 넣어보기! -->
+	<script>
+		console.log("2. body의 시작에 추가한 script.. 비추천");
+	</script>
+	<h1>JS 시작!!!!</h1>
+	
+	<div id="here">
+		여기
+	</div>
+	
+	<script>
+		console.log("3. body의 마지막에 추가한 script.. 여기는 많이 사용");
+		document.querySelector("#here").innerHTML="\"`^`\"";
+	</script>
+</body>
+</html>

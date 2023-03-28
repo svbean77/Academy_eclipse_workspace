@@ -21,14 +21,24 @@
 			background:blue;
 			color:white;
 		}
+		
+		/* 태그 이름이 없기 때문에 모든 태그에서 찾아 적용하겠다는 의미 */
 	[class ~="button"] {
 		border: 2px solid black;
 		box-shadow: rgba(0,0,0,0.4) 5px 5px;
+	}
+	.orange {
+		background-color: orange;
+	}
+	.red {
+		color: red;
 	}
 </style>
 </head>
 
 <body>
+	<!-- 여러 개의 class를 적용할 때는 클래스명을 띄어쓰기로 구분해야 함!! -->
+	<button class="button orange red">OK</button>
 	<ul>
 		<li><a href="#">메뉴 1</a></li>
 		<li><a href="#">메뉴 2</a></li>

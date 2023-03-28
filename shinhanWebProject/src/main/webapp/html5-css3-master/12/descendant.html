@@ -4,32 +4,92 @@
 <meta charset="utf-8">
 <title>요안도라</title>
 <style>
-	#container ul {
-		border: 1px dotted blue; /* #container 요소의 모든 하위 ul 요소에 파란 1px 실선 */
-	}
+/*
+CSS selector 충돌: 우선순위에 따라 적용됨!
+inline > id > class > tag
+
+우선 순위가 같다면 나중에 작성한 코드로 덮어쓰기!
+*/
+#container ul {
+	border: 1px dotted blue; /* #container 요소의 모든 하위 ul 요소에 파란 1px 실선 */
+}
+#container > ul {
+	border: 2px dotted red;
+}
+
+/* 연결 선택자 */
+div p {
+	/* div의 모든 하위 p */
+	border: 1px solid black;
+}
+/* 자식 선택자 */
+div > p {
+	/* div의 자식 p */
+	background-color: orange;
+}
+/* 인접 형제 선택자 */
+h1 + p {
+	font-size: 30px;
+}
+/* 형제 선택자 */
+h1 ~ p{
+	text-decoration: underline;
+}
+h1 ~ h2{
+	text-decoration: underline;
+}  
 </style>
 </head>
 
 <body>
-  <section id="container">
-  <header><h1>예약 방법 및 요금</h1></header>
-  <p> 요안도라에 예약하려면?
-  <ul>
-    <li> 예약 방법
-      <ul>
-        <li>직접 통화</li>
-        <li>문자 남기기</li>                       
-     </ul>
-   </li>	 
-   <li>요금 
-     <ul>
-        <li>1인 : 40,000원</li>
-        <li>2인 : 60,000원</li>
-        <li>3인 : 80,000원</li>
-	  <li>4인 : 100,000원</li>   
-    </ul>        
-   </li>	
-</ul> 
-</section>
+	<h1>h1이다</h1>
+	<h2>h2이다</h2>
+	<p>AAA</p> <!-- 첫 번째 동생이 아니기 때문에 인접 형제 선택자가 적용되지 않음! -->
+	<div>
+		<h1>h1이다</h1>
+		<p>AAA</p>
+		<p>AAA</p>
+		<p>AAA</p>
+		
+		<header>
+			<p>BBB</p>
+			<p>BBB</p>
+			<p>BBB</p>
+		</header>
+		<p>CCC</p>
+		<p>CCC</p>
+		<p>CCC</p>
+	</div>
+	<h2>h2이다</h2>
+	
+	<ul>
+		<!-- section의 자식이 아니기 때문에 스타일이 적용되지 않음! -->
+		<li>A</li>
+		<li>B</li>
+		<li>C</li>
+	</ul>
+	<section id="container">
+		<header>
+			<h1>예약 방법 및 요금</h1>
+		</header>
+		<p>요안도라에 예약하려면?
+		<ul>
+			<li>예약 방법
+				<ul>
+					<li>직접 통화</li>
+					<li>문자 남기기</li>
+				</ul>
+			</li>
+			<li>요금
+				<ul>
+					<li>1인 : 40,000원</li>
+					<li>2인 : 60,000원</li>
+					<li>3인 : 80,000원</li>
+					<li>4인 : 100,000원</li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	<h2>h2이다</h2>
 </body>
 </html>

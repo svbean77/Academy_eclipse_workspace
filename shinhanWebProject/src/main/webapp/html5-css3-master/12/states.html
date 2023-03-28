@@ -19,6 +19,7 @@
 				border:1px #ccc solid;
 			}
 			input:checked + span {
+				/* 인접 형제 선택자이기 때문에 '문법'은 바뀌지만 '독서'는 바뀌지 않는다! 첫 번째 동생이 아님! */
 				color:blue;
 			}
 	 	</style>
@@ -28,14 +29,23 @@
 			<fieldset>
 				<legend>사용자 정보</legend>
 				<label>이름 <input type="text" disabled></label>
+				<label>비밀번호 <input type="text"></label>
 			</fieldset>
 			<fieldset>
-				<legend>신청 과목</legend>
+				<legend>신청 과목 (radio: 배타적이기 때문에 중복 선택 불가능..)</legend>
 				<p>이 달에 신청할 과목을 선택하세요</p>
-				<label><input type="radio" name="subject" value="speaking"><span>회화</span></label>
-				<label><input type="radio" name="subject" value="grammar"><span>문법</span></label>
+				<label><input type="radio" name="subject" value="speaking" checked><span>회화</span></label>
+				<label><input type="radio" name="subject" value="grammar"><span>문법</span><span>독서</span></label>
 				<label><input type="radio" name="subject" value="writing"><span>작문</span></label> 
 			</fieldset>		
+			<fieldset>
+				<legend>체크박스 연습! (독립적이기 때문에 다중 선택 가능!)</legend>
+				<label><input type="checkbox" name="fruit" value="딸기" checked><span>딸기</span></label>
+				<label><input type="checkbox" name="fruit" value="복숭아"><span>복숭아</span></label>
+				<label><input type="checkbox" name="fruit" value="키위"><span>키위</span></label>
+				<label><input type="checkbox" name="fruit" value="귤"><span>귤</span></label>
+				<label><input type="checkbox" name="fruit" value="체리"><span>체리</span></label>
+			</fieldset>
 		</form>
   </body>
 </html>

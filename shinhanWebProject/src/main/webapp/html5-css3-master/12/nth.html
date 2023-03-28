@@ -2,6 +2,8 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
+    <!-- 화면 크기에 맞도록 뷰포트 설정 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>가상 클래스</title>
 	<style>
 		#container {
@@ -25,9 +27,37 @@
 			background:lightgray;
 			color:black;
 		}
+		table tr:nth-child(even) {
+			background:yellow;
+			color:black;
+		}
+		div p:nth-child(2n) {
+			/* 
+			사이에 다른 태그가 껴도 숫자에 포함 됨! 
+			div의 자손 중 짝수번째로 나오는 p
+			*/
+			background-color: orange;
+		}
+		div p:nth-of-type(even) {
+			/* 
+			해당 태그에 대해서만 숫자를 세겠다! 
+			div의 자손p 중 짝수번째로 나오는 p
+			*/
+			color: red;
+		}
 	</style>
 </head>
 <body>
+	<div>
+		<h1>nth-child 연습!</h1>
+		<p>AAA</p>
+		<p>BBB (짝)</p>
+		<span>--span--</span>
+		<p>CCC</p>
+		<p>DDD (짝)</p>
+		<p>EEE</p>
+	</div>
+
 	<div id="container">
 		<h1>건강에 좋은 건강 식품</h1>
 		<table>
