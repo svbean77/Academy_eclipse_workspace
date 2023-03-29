@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	window.onload = init; // function(){}으로 계속 만드는 게 너무 길어져!! -> 미리 만들어서 넣자~
+	
+	function init() {
+		document.getElementById("btn1").onclick = call1; // 이게 정식 방법인데 너무 기니까 변수로 만들어놓자
+		document.getElementById("btn2").onclick = call2; 
+		document.getElementById("btn3").onclick = call3; 
+		document.getElementById("btn4").onclick = call4; 
+		document.getElementById("btn5").onclick = call5; 
+		
+		document.getElementById("btnCompute").onclick = compute; 		
+		
+		document.getElementById("btn6").onclick = call6; 
+		document.getElementById("btn7").onclick = call7; 
+		document.getElementById("btn8").onclick = call8; 
+		document.getElementById("btn9").onclick = call9; 
+		document.getElementById("btn10").onclick = call10; 
+	}
+	
+	// 이후에 이벤트 핸들러 작성!
+	function call1 () {
+		var arr = ["blue", "orange", "yellow", "pink", "purple", "green"];
+		
+		// 일반 for 문, for in 문, for of 문
+		// forEach 문: 제일 권장하는 방법! JAVA의 stream과 비슷하다고 생각하면 됨!
+		// callback 함수임: 익명함수 정의는 내가 하고 호출은 forEach에서 하잖아
+		arr.forEach(function (item, seq, obj) {
+			console.log(item, seq, obj);
+		});
+		
+		console.log("나는 값만 가지고 싶어!");
+		arr.forEach((item) => console.log(item));
+		
+		console.log("나는 인덱스만 가지고 싶어!");
+		arr.forEach((item, idx) => console.log(idx)); // 두 번째가 인덱스이기 때문에 안쓰더라도 값은 줘야 함
+	}
+	
+	function call2() {
+		var arr = new Array("pink", "Khaki", "DarkSeaGreen", "lightgray", "AliceBlue", "white", "Beige", "CadetBlue", "LemonChiffon");
+		intervalId = setInterval(bgChange, 1000);
+		
+		function bgChange () {
+			var num = Math.floor(Math.random() * arr.length);
+			document.bgColor = arr[num];
+		}
+	}
+	
+	function call3() {
+		clearInterval(intervalId);
+	}
+	
+	function call4() {
+		var uri = " a.jsp?name=홍길동&address=경기도어딘가";
+		
+		here.innerHTML += "<br>encodeURI: " + encodeURI(uri);
+		here.innerHTML += "<br>encodeURIComponent: " + encodeURIComponent(uri);
+	}
+	
+	function call5() {
+		var s = "a=10; b=20; c=a+b; alert(c)";
+		
+		eval(s);
+	}
+	
+	function compute() {
+		let num1 = document.getElementById("num1").value;
+		let num2 = document.getElementById("num2").value;
+		let op = document.getElementById("op").value;
+		
+		here.innerHTML += "<br>" + num1 + op + num2 + "를 계산한다!";
+		
+		let s = num1 + op + num2;
+		document.getElementById("result").value = eval(s);
+	}
+	
+	// ppt 5장 p.47 그대로 복붙
+	// 매개변수에 값이 있는지 체크, 없으면 default값 추가
+	function callA(a,b,c){
+		// undefined의 boolean은 false -> !false니까 true! 값이 없으면 저 값으로 대체하라~라는 의미
+		if (!b) b=200; 
+		if (!c) c=300;
+		document.getElementById("here").innerHTML += "<br>callA: " + (a+b+c);
+	}
+	function callB(a,b,c){
+		b = b || 201;
+		c = c || 301;
+		document.getElementById("here").innerHTML += "<br>callB: " + (a+b+c);
+	}
+	function callC(a,b=202,c=302){
+		document.getElementById("here").innerHTML += "<br>callC: " + (a+b+c);
+	}
+
+	function call6() {
+		callA(1, 2, 3);
+		callA(1, 2);
+		callA(1);
+		
+		callB(1, 2, 3);
+		callB(1, 2);
+		callB(1);
+		
+		callC(1, 2, 3);
+		callC(1, 2);
+		callC(1);
+	}
+	
+	// 5장 p.48 그대로
+	function test1(){
+   		f = function(a,b){ return a+b; }
+   		f2 = function() { alert("일반함수.. parameter 없고 return 없음"); }
+   		f3 = function(x) { alert(x + "일반함수.. parameter 있고 return 없음"); }
+   		f4 = function(x) { alert(x + "일반함수.. parameter 있고 return 있음"); return x + "return이 있다"; }
+   		
+   		f2();
+   		f3(100);
+   		var r = f4(100);
+  		document.getElementById("here").innerHTML += "<br>일반함수: " + f(10,20) + " " + r;
+	}
+
+	function test2(){
+   		f = (a,b) => a+b; 
+   		f2 = () => alert("arrow함수.. parameter 없고 return 없음");
+   		f3 = (x) => alert(x + "arrow함수.. parameter 있고 return 없음");
+   		f4 = (x) => { alert(x + "arrow함수.. parameter 있고 return 있음"); return x + "return이 있다"; }
+
+   		f2();
+   		f3(100);
+   		var r = f4(100);
+ 		document.getElementById("here").innerHTML += "<br>화살표함수: " + f(100,200) + " " + r;
+	}
+
+	function call7() {
+		test1();
+		test2();
+	}
+	
+	// ppt 5장 p.49 그대로
+	function method1(){
+    	document.getElementById("here").innerHTML += "<br>method1: " + (arguments[0]+arguments[1]+arguments[2]);
+	}
+	function method2(a,b,c){
+		document.getElementById("here").innerHTML += "<br>method2: " + (a+b+c);
+	}
+	function method3(...nums){ // ...: 전개 연산자
+		document.getElementById("here").innerHTML += "<br>method3: " + (nums[0]+nums[1]+nums[2]);
+	}
+	function method4(a,b,c,d){
+		document.getElementById("here").innerHTML += "<br>method4: " + (a+b+c+d);
+	}
+	function method5(){
+		arr=[1,2];
+		document.getElementById("here").innerHTML += "<br>method5 start~";
+		method4(...arr, ...arr);
+		method4(10,20, ...arr);
+		document.getElementById("here").innerHTML += "<br>method5 end~";
+	}
+
+	function call8() {
+		method1(1, 2, 3);
+		method2(1, 2, 3);
+		method3(1, 2, 3);
+		method4(1, 2, 3, 4);
+		method5();
+	}
+	function call9() {}
+	function call10() {}
+</script>
+</head>
+<body>
+	<h1>function 배워</h1>
+
+	<button id="btn1">ECMAScript6-looping (forEach)</button>
+	<button id="btn2">1초마다 배경색 바꾸기</button>
+	<button id="btn3">배경색 그만 바꿔!</button>
+	<button id="btn4">인코딩</button>
+	<button id="btn5">eval</button>
+
+	<div style="border: 5px dotted green; padding: 5px;">
+		<input id="num1" value="10" type="number"> <select id="op">
+			<option>+</option>
+			<option>-</option>
+			<option>*</option>
+			<option>/</option>
+			<option>%</option>
+		</select> <input id="num2" value="20" type="number">
+		<button id="btnCompute">=</button>
+		<input id="result" value="">
+	</div>
+
+	<button id="btn6">기본매개변수</button>
+	<button id="btn7">화살표함수</button>
+	<button id="btn8">전개연산자</button>
+	<button id="btn9"></button>
+	<button id="btn10"></button>
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>

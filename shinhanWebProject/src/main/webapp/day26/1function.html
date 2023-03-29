@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>function 연습</title>
+<style>
+	h1 {
+		background-color: orange;
+	}
+</style>
+<script>
+	console.log("head에 있는 JavaScript! (internal)");
+</script>
+<script>
+	score = 100; // global 변수
+	var score2 = 200; // global 변수: 해당 script 내부에서 사용 가능하기 때문에 사실상 global
+	let score3 = 300; // global 변수: 해당 script 내부에서 사용 가능하기 때문에 사실상 global
+	const score4 = 400; // 상수: 변경 불가능
+	
+	function call() {
+		a = 10; // 함수를 수행하면 global 변수가 됨 -> var이 없기 때문에!
+		var b = 20; // local 변수 (call() 함수 내부에서만 사용 가능)
+		let c = 30; // { block } 내부에서만 유효!
+		{
+			let d = 40;
+		}
+		// console.log(a + b + c + d); // d는 범위를 벗어났기 때문에 에러!
+		
+		// document.getElementById("here") // 원래 방식
+		here.innerHTML = a + b + c; // id는 바로 사용할 수 있음! (어차피 문서 내 하나니까!)
+	}
+	
+	// 내가 꼭! head에 버튼 누르는 함수를 넣어야겠다! 하면 이 방법 사용: load 되면 실행!
+	window.onload = function() { 
+		// alert("load됨!");
+		document.getElementById("btn2").onclick = function () {
+			here.innerHTML = "버튼을 눌렀다!";
+			
+			// 데이터 타입: number, string, boolean, undefined, function, object
+			// number: 123
+			// string: "12" or '12' or `jk`
+			// boolean: true or false
+			// undefined: 선언되었지만 값 할당X
+			// function: function () {}
+			// object: {}, 배열[]
+			// typeof()를 사용해 데이터 타입을 알 수 있음!
+			
+			var age = prompt("나이를 입력", 20);
+			here.innerHTML = age + ", 타입: " + typeof(age);
+			var name;
+			here.innerHTML = name + ": " + typeof(name); // undefined: undefined
+		}; 
+	};
+</script>
+</head>
+<body>
+	<h1>JavaScript function 문법들~</h1>
+	<hr>
+	
+	<button onclick="call()">변수복습 (inline JS)</button>
+	<button id="btn2">Data type 복습</button>
+	<button id="btn3">선언적함수</button>
+	<button id="btn4">익명함수</button>
+	<hr>
+	
+	<div id="here">여기</div>
+	<img alt="머핀이다" src="../html5-css3-master/images/muffin.png">
+	
+	<script>
+		btn3.onclick = f3; // 선언적 함수
+		btn4.onclick = function () { // 익명 함수: 여러 번 사용 불가능
+			here.innerHTML = "이름이 없는 익명 함수.."
+			f3(); // 선언적 함수는 다시 사용 가능~
+			
+			(function () { // 익명 함수 정의 후 바로 실행 (일회용)
+				alert("익명! (바로 실행)");
+			})();
+			
+			var a = function () {
+				alert("익명! (변수에 넣음)")
+			};
+			
+			a();
+			a();
+
+		};
+		
+		function f3() {
+			here.innerHTML += "<br>이름이 있는 선언적 함수!";
+		}
+	</script>
+</body>
+</html>

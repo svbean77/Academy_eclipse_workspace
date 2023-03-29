@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>function 연습</title>
+<script>
+	console.log("1.js");
+	// here.innerHTML += "<br>1.js 접근!"; // Uncaught ReferenceError: here is not defined
+	
+	window.onload = f1; // onload에 함수가 들어가야 함 -> callback 함수로! load 후에 f1 함수를 수행하라는 의미
+	
+	function f1() {
+		here.innerHTML += "<br>1.onload로 js 접근!<hr>";
+		
+		btn1.onclick = function () {
+			here.innerHTML += "<br>btn1: " + sum(10, 20, 30); // 3개를 줘도 알아서 2개만 받음
+			here.innerHTML += "<br>btn1: " + sum(10); // 값 하나가 undefined이기 때문에 결과는 NaN
+		};
+		
+		btn2.onclick = function () {
+			var a = Array();
+			var b = Array(5);
+			var c = Array(1, 2, 3);
+			
+			here.innerHTML += "<br>btn2: " + a + ", 길이: " + a.length;
+			here.innerHTML += "<br>btn2: " + b + ", 길이: " + b.length;
+			here.innerHTML += "<br>btn2: " + c + ", 길이: " + c.length;
+		};
+		
+		btn3.onclick = function () {
+			here.innerHTML += "<br>btn3: " + sumAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+			here.innerHTML += "<br>btn3: " + sumAll(1, 2, 3, 4, 5);
+		}
+		
+		btn4.onclick = function () {
+			alert("메시지 보여줘!"); // Uncaught TypeError: alert is not a function: var 변수로 써버렸기 때문에 사용할 수 없어..!
+			
+			var alert = 100; // 함수의 이름으로 쓰일만한 이름은 변수로 사용하지 않는 것이 좋아..
+			delete alert;
+			alert("정상 동작!");
+		};
+		
+		btn5.onclick = function () {
+			var myFunction = function () {
+				here.innerHTML += "<br><p>btn5: JS 배우기~</p>";
+			};
+			
+			// myFunction(); // 이거는 콜백함수가 아님! 내가 부르는 게 아니야!
+			call(myFunction); // 함수를 매개변수로 전달해 그 곳에서 실행 = 콜백함수
+		};
+		
+		btn6.onclick = function() {
+			timer = setInterval(function(){
+				here.innerHTML += "<br>btn6: " + new Date();
+			}, 1000); // setInterval 함수에게 익명함수를 넘겨주고 setInterval이 알아서 호출
+		};
+		
+		btn7.onclick = function () {
+			clearInterval(timer);
+		};
+		
+		// 내부 함수
+		// 함수의 이름이 충돌되면 마지막에 선언된 함수가 실행됨
+		// 내부 함수로 선언함으로써 내 안에서 항상 사용할 수 있도록! 같은 이름의 함수가 있어도 충돌되지 않도록!
+		// 반드시 수행해야 하는 함수를 내부함수로 만들 수 있다!
+		function sumAll() {
+			var total = 0;
+			
+			for(let i = 0; i < arguments.length; i++){
+				total += arguments[i];
+			}
+			
+			return total;
+		} 
+		
+		// 콜백 함수
+		// callback: 행위는 결정되었지만(내가) 시점은 받은 쪽에서 결정
+		function call(ff) {
+			ff();			
+		}
+	};
+	
+	function sum (a, b) {
+		return a + b;
+	}
+	
+	// 가변 인자 함수: 매개변수를 선언하지 않음! arguments가 알아서 해줘
+	function sumAll() {
+		var total = 0;
+		
+		for(let i = 0; i < arguments.length; i++){
+			total += arguments[i];
+		}
+		
+		return total;
+	} 
+	
+	function sumAll() { // 내부 함수를 작성해야 하는 이유! 같은 함수들이 있으면 뒤의 값으로 나와버려..
+		return 999;
+	} 
+</script>
+</head>
+<body>
+	<script>
+		console.log("2.js");
+		here.innerHTML += "<br>2.js 접근!"; // Uncaught ReferenceError: here is not defined
+	</script>
+	
+	<h1>JS function이다</h1>
+	<hr>
+	
+	<button id="btn1">함수의 매개변수</button>
+	<button id="btn2">Array()</button>
+	<button id="btn3">가변인자함수+내부함수</button>
+	<button id="btn4">함수이름충돌</button>
+	<button id="btn5">callback함수</button>
+	<button id="btn6">callback함수(타이머시작)</button>
+	<button id="btn7">callback함수(타이머중지)</button>
+	<hr>
+	
+	<div id="here">여기</div>
+	
+	<script>
+		console.log("3.js");
+		here.innerHTML += "<br>3.js 접근!"; // 성공!
+	</script>
+</body>
+</html>

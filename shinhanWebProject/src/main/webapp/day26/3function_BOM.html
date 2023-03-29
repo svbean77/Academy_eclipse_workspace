@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>function_BOM</title>
+<script>
+	window.onload = function() { // 얘도 콜백 함수임 = onload라는 함수에게 이벤트 핸들러를 보내주니까! '로드 시' 알아서 실행
+		btn1.onclick = function() {
+			for ( var prop in window) {
+				here.innerHTML += "<br>" + prop + " -> " + window[prop];
+			}
+		};
+
+		// callback: 정의는 내가 하고 호출은 받은 쪽에서 한다.
+		btn2.onclick = function() {
+			call(function() {
+				alert("익명함수다!");
+			});
+		};
+
+		btn3.onclick = function() {
+			timer = setInterval(function() {
+				here.innerHTML += "<br>" + new Date();
+			}, 1000);
+		}
+
+		btn4.onclick = function() {
+			clearInterval(timer);
+		}
+
+		btn5.onclick = function() {
+			var f = closureTest(300); // a, b 변수를 사용할 수 있게 됨! (이 함수는 a+b+c+1000을 리턴)
+			here.innerHTML += "<br>btn5: " + f;
+			here.innerHTML += "<br>btn5: " + f();
+		};
+
+		var f6_1 = add(0); // 카운트를 계속 증가시키고 싶으니까 로드 시 가져오기 (onclick마다 초기화되니까 계속 1만 나오잖아)
+		var f6_2 = add(100); // 어떤 값부터 시작인지 정하고싶어 -> 같은 기능인데 독립적으로 사용할 수 있다! 각각 다른 공간에 count가 생기는거야!!!
+		btn6.onclick = function() {
+			here.innerHTML += "<br>start 0 count: " + f6_1()
+					+ " -- start 100 count: " + f6_2();
+		}
+
+		btn7.onclick = call1;
+		btn8.onclick = call2;
+		btn9.onclick = call3;
+
+		btn10.onclick = function() {
+			var score = [ 100, 99, 50, 78 ];
+
+			score.forEach(function(elt, idx, arr) {
+				here.innerHTML += "<br>idx: " + idx + ", element: " + elt
+						+ ", array: " + arr;
+			}); // 람다 표현식: () => {}
+		};
+
+		// ppt 5장 p.30 그대로
+		function call1() {
+			for (var i = 0; i < 3; i++) { // setTimeout이 실행되기 전 이미 i 값이 증가하기 때문에 전부 3이 뜸! = i 변수를 공통으로 사용하니까
+				// setTimeout에 값을 넣어준 상태, 함수가 실행되기 전 이미 i 값은 증가됨
+				// 왜 안되는데? setTimeout은 콜백 -> 실행 시점은 나중에
+				// var이 붙으면 call1() 내부에서 유효 -> 항상 최종값을 사용
+				// 따라서 setTimeout이 실행되는 시점에서는 최종값인 3이 사용된다
+				setTimeout(function() {
+					alert(i);
+				}, 0);
+			}
+		}
+		function call2() {
+			for (var i = 0; i < 3; i++) { // 익명 함수의 지역변수(aa)에 i를 보내줌 -> 다른 변수에 복사해(aa) 그 값으로 alert 실행 -> 원하는 값 얻어!
+				(function(aa) {
+					setTimeout(function() {
+						alert(aa);
+					}, 0);
+				})(i);
+			}
+		}
+		function call3() {
+			for (let i = 0; i < 3; i++) { // let은 for문 내부에만 유효한 block변수이기 때문에 원하는 값 얻음! -> 각각의 i가 다른 영역에 존재
+				// let는 클로저를 지원한다고 생각하면 된다!
+				setTimeout(function() {
+					alert(i);
+				}, 0);
+
+			}
+		}
+	};
+
+	// 콜백 (2)
+	function call(f) {
+		f();
+	}
+
+	// 클로저 (5)
+	function closureTest(b) {
+		var a = 100;
+
+		return function() {
+			var c = 200;
+			return a + b + c + 1000;
+		};
+	}
+
+	// 클로저 예제(6)
+	function add(start) {
+		var count = start;
+		return function() {
+			count++;
+			return count;
+		};
+	}
+</script>
+</head>
+<body>
+	<h1>Function / BOM</h1>
+
+	<button id="btn1">window객체</button>
+	<button id="btn2">callback함수</button>
+	<!-- 왜 콜백함수를 쓰느냐?!에 대한 답 -> 함수 실행 시기는 쓰는 쪽에서 정하기 위해 (타이머 예제) -->
+	<button id="btn3">Timer시작</button>
+	<button id="btn4">Timer종료</button>
+	<button id="btn5">클로저</button>
+	<button id="btn6">클로저예제(ppt 5장 p.29)</button>
+	<button id="btn7">클로저X(p.30)</button>
+	<button id="btn8">클로저O(p.30)</button>
+	<button id="btn9">클로저X(p.30, let 선언)</button>
+	<button id="btn10">자동클로저</button>
+
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>
