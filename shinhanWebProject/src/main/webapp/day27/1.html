@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	table, tr, td, th {
+		border: 3px dotted pink;
+		border-collapse: collapse;
+	}
+	td, th {
+		padding: 5px;
+	}
+</style>
+<script>
+/*
+ * 선언적 함수: 이름이 있는 함수
+ * 익명 함수: 이름이 없는 함수
+ * 내부 함수: 함수 내의 함수 -> 외부 접근 X
+ * 콜백 함수: 정의는 내가 하고 호출은 받은 쪽에서 한다 -> 함수가 파라미터로 전달됨
+ * 클로저: 지역 변수는 지역을 벗어나면 사용 불가, 이 규칙을 위반해 지역을 벗어난 곳에서도 사용 -> 지역변수를 담은 함수를 리턴 => 지역변수 계속 사용 가능
+ * 화살표 함수(람다식): () => {}
+ */
+	window.onload = function () { // 익명 함수 + 콜백 함수
+		here.innerHTML = "<h1>로드 끝~</h1>";
+		
+		btn1.onclick = call1; // 콜백 함수
+		btn2.onclick = call2;
+		btn3.onclick = call3;
+		btn4.onclick = call4;
+		btn5.onclick = call5;
+		btn6.onclick = call6;
+		btn7.onclick = call7;
+		btn8.onclick = call8;
+		btn9.onclick = call9;
+		btn10.onclick = call10;
+		
+		function test () {} // 내부 함수
+	};
+	
+	function call1(){
+		setInterval(() => {
+			here.innerHTML = new Date();
+		}, 1000);
+	}
+	function call2(){
+		// 클로저가 없으면
+		for(var i = 0; i < 3; i++) {
+			// here.innerHTML += `<br>for 내부 i: ${i}`; // 0 1 2
+			setTimeout(() => { // callback으로 넣었기 때문에 언젠가 해당 문장을 실행할거야
+				here.innerHTML += `<br>for 내부 i: ${i}`; // 3 3 3
+			}, 0);
+		}
+		here.innerHTML += `<br>for 클로저X 외부 i: ${i}`; // var로 선언했기 때문에 가능
+
+	}
+	function call3(){
+		// 클로저가 있으면 
+		for(var i = 0; i < 3; i++) {
+			(function (aa) {
+				setTimeout(() => {
+					here.innerHTML += `<br>for 내부 aa: ${aa}`; // 0 1 2
+				}, 0);
+			})(i);
+		}
+		here.innerHTML += `<br>for 클로저O 외부 i: ${i}`; // var로 선언했기 때문에 가능
+	}
+	function call4(){
+		for(let i = 0; i < 3; i++) {
+			setTimeout(() => { 
+				here.innerHTML += `<br>for 내부 let i: ${i}`; // 0 1 2
+			}, 0);
+		}
+		here.innerHTML += `<br>for 외부 let i: ${i}`;
+	}
+	function call5(){
+		// 클로저 기능을 가짐: forEach
+		var arr = [100, 60, 90, 30];
+		var str = "<ul>";	
+	
+		arr.forEach((item, idx, obj) => {
+			str += `<li>${idx}: ${item}</li>`;
+		});
+		
+		here.innerHTML += str + "</ul>";
+	}
+	function call6(){
+		var arr = [];
+		arr.push({name: "홍길동1", age: 20, java: 100, sql: 99, jdbc: 88});
+		arr.push({name: "홍길동2", age: 23, java: 90, sql: 77, jdbc: 98});
+		arr.push({name: "홍길동3", age: 25, java: 80, sql: 98, jdbc: 84});
+		arr.push({name: "홍길동4", age: 27, java: 70, sql: 78, jdbc: 68});
+		arr.push({name: "홍길동5", age: 29, java: 60, sql: 59, jdbc: 87});		
+		
+		for(var idx in arr){
+			console.log(arr[idx]);
+			for(var prop in arr[idx]) {
+				console.log(`${prop} -- ${arr[idx][prop]}`);
+			}
+		}
+		
+		// forEach로 돌려보자!
+		var str = "<table><tr><th>이름</th><th>나이</th><th>총점</th></tr>";
+		arr.forEach((item, idx) => {
+			str += `<tr><td>${item.name}</td><td>${item.age}</td><td>${item.java + item.sql + item.jdbc}</td></tr>`;
+		});
+		here.innerHTML += str + "</table>";
+		
+		// 배열의 길이만큼 같은 기능(함수)을 넣는 것은 조금 비효율적이다..
+		for(var idx in arr){
+			arr[idx].getSum = function () {
+				return this.java + this.sql + this.jdbc; 
+			};
+			arr[idx].getAvg = function () {
+				return this.getSum() / 3;
+			}
+		}
+		
+		var str = "<table><tr><th>이름</th><th>나이</th><th>총점</th><th>평균</th></tr>";
+		arr.forEach((item, idx) => {
+			str += `<tr><td>${item.name}</td><td>${item.age}</td><td>${item.getSum()}</td><td>${item.getAvg()}</td>`;
+		});
+		here.innerHTML += str + "</table>";
+	}
+	
+	// 생성자 함수
+	function Student(name, age, java, sql, jdbc) { // 자바의 class라고 생각하면 됨
+		this.name = name; // this를 생략하면 객체의 변수가 아닌 global이 되어버림..
+		this.age = age;
+		this.java = java;
+		this.sql = sql;
+		this.jdbc = jdbc;
+	}
+	function call7(){
+		var arr = [];
+		arr.push(new Student("김철수", 20, 100, 23, 100));
+		arr.push(new Student("이철수", 24, 50, 82, 85));
+		arr.push(new Student("박철수", 26, 72, 67, 34));
+		arr.push(new Student("최철수", 28, 64, 27, 74));
+		arr.push(new Student("한철수", 29, 76, 99, 88));
+		
+		// 프로토타입: 객체가 공통으로 가지는 공간
+		Student.prototype.getSum = function () {
+			return this.java + this.sql + this.jdbc; 
+		};
+		Student.prototype.getAvg = function () {
+			return this.getSum() / 3;
+		};
+		Student.prototype.toString = function () {
+			return `이름은 ${this.name}이고 나이는 ${this.age}살<br>${this.java}, ${this.sql}, ${this.jdbc}의 총점은 ${this.getSum()}이고 평균은 ${this.getAvg()}`;
+		};
+		
+		for(var idx in arr){
+			console.log(arr[idx]);
+			here.innerHTML += `<p>${arr[idx]}</p>`;
+		}
+	}
+	
+	// new 키워드 생략하면 window의 속성!
+	function Car (model) {
+		this.model = model;
+	}
+	function call8(){
+		var c1 = new Car("ABC"); // Car 객체 생성
+		var c2 = Car("DEF"); // window 객체에 model 속성 추가, Car 함수는 return이 없기 때문에 c2는 undefined
+		
+		console.log(`c1: ${c1.model}`);
+		// console.log(c2.model); // undefined에 속성이 어딨어.. 따라서 에러 발생!
+		console.log(`생략: ${model}`); // 객체를 생략하는 것은 window.을 의미
+		console.log(`window: ${window.model}`);
+		console.dir(window); // 여기 안에 model이 있을 것임
+	}
+	
+	// 캡슐화
+	function Car2 (m) {
+		var model = m;
+		
+		// 지금은 빨리 쓰려고 그냥 썼지만 공통되는 함수니까 프로토타입으로 작성하는 게 좋다!
+		this.getModel = function () {
+			return model;
+		};
+		this.setModel = function (m) {
+			model = m;
+		}
+	}
+	function call9(){
+		var c1 = new Car2("ABC");
+		console.log(c1.model); // 캡슐화했기 때문에 undefined
+		console.log(`원본: ${c1.getModel()}`);
+		c1.setModel("DEF");
+		console.log(`변경: ${c1.getModel()}`);
+	}
+	function call10(){}
+</script>
+</head>
+<body>
+	<h1>function, object에 대해</h1>
+	
+	<button id="btn1">callback함수</button>
+	<button id="btn2">closureX</button>
+	<button id="btn3">closure(변수복사)</button>
+	<button id="btn4">closure(let)</button>
+	<button id="btn5">closure(forEach)</button>
+	<button id="btn6">객체배열</button>
+	<button id="btn7">생성자함수</button>
+	<button id="btn8">new</button>
+	<button id="btn9">캡슐화</button>
+	<button id="btn10"></button>
+	<hr>
+	
+	<div id="here">여기</div>
+</body>
+</html>

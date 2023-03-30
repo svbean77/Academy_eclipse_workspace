@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	window.onload = function () {
+		btn1.onclick = call1; 
+		btn2.onclick = call2;
+		btn3.onclick = call3;
+		btn4.onclick = call4;
+		btn5.onclick = call5;
+		btn6.onclick = call6;
+		btn7.onclick = call7;
+		btn8.onclick = call8;
+	}
+	
+	function call1(){
+		var str = "<h3>window</h3>";
+		for(let prop in window) {
+			str += "<p>" + prop + " --> " + window[prop] + "</p>";
+		}
+		here.innerHTML = str;
+	}
+	function call2(){
+		var str = "<h3>document</h3>";
+		for(let prop in document) {
+			str += "<p>" + prop + " --> " + document[prop] + "</p>";
+		}
+		here.innerHTML = str;
+	}
+	function call3(){
+		var str = "<h3>location</h3>";
+		for(let prop in location) {
+			str += "<p>" + prop + " --> " + location[prop] + "</p>";
+		}
+		here.innerHTML = str;
+	}
+	function call4(){
+		var str = "<h3>navigator</h3>";
+		for(let prop in navigator) {
+			str += "<p>" + prop + " --> " + navigator[prop] + "</p>";
+		}
+		here.innerHTML = str;
+	}
+	function call5(){
+		var str = "<h3>history</h3>";
+		for(let prop in history) {
+			str += "<p>" + prop + " --> " + history[prop] + "</p>";
+		}
+		here.innerHTML = str;
+	}
+	function call6(){
+		var str = "<h3>screen</h3>";
+		for(let prop in screen) {
+			str += "<p>" + prop + " --> " + screen[prop] + "</p>";
+		}
+		here.innerHTML = str;
+	}
+	function call7() {
+		// BOM을 알아야 하는 이유: 이런식으로 페이지 이동 등을 해야 함
+		location.href = "../day23/empSelect.jsp";
+	}
+	function call8() {
+		location.href = "../day23/emp_insert.html";
+	}
+</script>
+</head>
+<body>
+	<h1>BOM 배우기~</h1>
+	<button id="btn1">window</button>
+	<button id="btn2">document</button>
+	<button id="btn3">location</button>
+	<button id="btn4">navigator</button>
+	<button id="btn5">history</button>
+	<button id="btn6">screen</button>
+	<button id="btn7">조회 페이지 이동 (버튼 사용)</button>
+	<a href="../day23/empSelect.jsp">조회 페이지 이동(a태그 사용)</a>
+	<button id="btn8">등록 페이지 이동</button>
+
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>

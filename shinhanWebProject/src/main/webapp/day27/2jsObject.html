@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-umd-min.js"></script>
+<script>
+	window.onload = function () {
+		btn1.onclick = call1; 
+		btn2.onclick = call2;
+		btn3.onclick = call3;
+		btn4.onclick = call4;
+		btn5.onclick = call5;
+		btn6.onclick = call6;
+		btn7.onclick = call7;
+		btn8.onclick = call8;
+		btn9.onclick = call9;
+		btn10.onclick = call10;
+	}
+	
+	function call1(){
+		var a = 10;
+		var b = new Number(10);
+		
+		console.log(a, typeof(a)); // number
+		console.log(b, typeof(b)); // object
+		
+		console.log(a+b); // object이지만 덧셈이 가능해~ 차이가 없어보여~
+		
+		// 하지만 차이가 있다!	
+		Number.prototype.myFunction = function () {
+			alert("Number object에 프로토타입 함수 추가!");
+		}
+		/*
+		b.prototype.myFunction = function () { // b는 객체가 아니기 때문에 프로토타입을 추가할 수 없어..
+			alert("Number 변수에 프로토타입 함수 추가!");
+		}
+		*/
+		/*
+		a.prototype.myFunction = function () { // 그냥 변수에는 프로토타입을 추가할 수 없어..
+			alert("자료형 number에 프로토타입 함수 추가!");
+		}
+		*/
+		
+		// 둘 다 Number이긴 하기 때문에 a도, b도 프로토타입은 호출할 수 있다!!!!!
+		a.myFunction();
+		b.myFunction();
+		
+		/*
+		a.myFunction2 = function () { // 기본형에는 함수를 추가할 수 없어..
+			alert("자료형 number에 함수 추가!");
+		}
+		*/
+		b.myFunction2 = function () {
+			alert("Number형 변수에 함수 추가!");
+		}
+		
+		// a.myFunction2();
+		b.myFunction2();
+	}
+	function call2(){
+		var arr = [100, 50, 70, 200];
+		
+		// 추가
+		arr.push(300);
+		
+		var str = "<h3>원본</h3>";
+		arr.forEach((item, idx) => {
+			str += `<p>${idx}번째: ${item}</p>`;
+		});
+		here.innerHTML += str;
+		
+		// 정렬: 문자열로 인식해 정렬함..
+		arr.sort();
+		var str = "<h3>sort</h3>";
+		arr.forEach((item, idx) => {
+			str += `<p>${idx}번째: ${item}</p>`;
+		});
+		here.innerHTML += str;
+		
+		// 정렬: 내가 원하는 순서대로 정렬하도록
+		arr.sort((a, b) => a - b); // asc
+		var str = "<h3>오름차순 sort</h3>";
+		arr.forEach((item, idx) => {
+			str += `<p>${idx}번째: ${item}</p>`;
+		});
+		here.innerHTML += str;
+	}
+	
+	// 학생 성적순으로 정렬해보자~
+	function Student(name, age, java, sql, jdbc) {
+		this.name = name;
+		this.age = age;
+		this.java = java;
+		this.sql = sql;
+		this.jdbc = jdbc;
+	}
+	function call3(){
+		var arr = [];
+		arr.push(new Student("김철수", 20, 100, 23, 100));
+		arr.push(new Student("이철수", 24, 50, 82, 85));
+		arr.push(new Student("박철수", 26, 72, 67, 34));
+		arr.push(new Student("최철수", 28, 64, 27, 74));
+		arr.push(new Student("한철수", 29, 76, 99, 88));
+		
+		Student.prototype.getSum = function () {
+			return this.java + this.sql + this.jdbc; 
+		};
+		Student.prototype.getAvg = function () {
+			return this.getSum() / 3;
+		};
+		Student.prototype.toString = function () {
+			return `이름은 ${this.name}이고 나이는 ${this.age}살<br>${this.java}, ${this.sql}, ${this.jdbc}의 총점은 ${this.getSum()}이고 평균은 ${this.getAvg()}`;
+		};
+		
+		var str = "<h3>총점 내림차순 정렬</h3>";
+		arr.sort((a, b) => b.getSum() - a.getSum()); // desc
+		for(var idx in arr) {
+			str += `<p>${arr[idx]}</p>`;
+		}
+		here.innerHTML += str;
+		
+		var str = "<h3>이름 오름차순 정렬</h3>";
+		arr.sort((a, b) => { // 오름차순
+			var result = 1;
+			
+			if (a === b) {
+				result = 0;
+			}
+			else if(a < b) {
+				result = -1;
+			}
+			
+			return result;
+		});
+		for(var idx in arr) {
+			str += `<p>${arr[idx]}</p>`;
+		}
+		here.innerHTML += str;
+		
+		var str = "<h3>상위 3명만 출력</h3>";
+		arr.sort((a, b) => a == b ? 0 : a > b ? -1 : 1); // 내림차순 정렬
+		for(var idx in arr.slice(0, 3)) {
+			str += `<p>${arr[idx]}</p>`;
+		}
+		here.innerHTML += str;
+	}
+	function call4(){
+		var arr = [100, 50, 70, 200];
+		here.innerHTML = arr; // toString이 재정의되어있기 때문에 배열이 보임
+		here.innerHTML += "<br>" + arr.join(" - ");
+	}
+	function call5(){
+		var arr = [100, 50, 70, 200];
+		here.innerHTML += `<p>원본: ${arr.join(" - ")}</p>`;
+		
+		var result = arr.map((item) => item / 10);
+		here.innerHTML += `<p>map: ${result.join(" - ")}</p>`;
+	}
+	function call6(){
+		var arr = [1, 9, 6, 5, 2, 10, 4, 7, 3, 8];
+		here.innerHTML += `<p>원본: ${arr.join(" - ")}</p>`;
+		
+		var result = arr.filter((item) => item % 3 === 0);
+		here.innerHTML += `<p>filter: ${result.join(" - ")}</p>`;
+	}
+	function call7(){
+		var arr = [1, 9, 6, 5, 2, 10, 4, 7, 3, 8];
+		here.innerHTML += `<p>원본: ${arr.join(" - ")}</p>`;
+		
+		var result = arr.reduce((before, current) => {
+			here.innerHTML += `<p>before: ${before} -- current: ${current}</p>`;
+			return before + current;
+		});
+		here.innerHTML += `<h3>결과: ${result}</h3>`;
+	}
+	function call8(){
+		var obj = {};
+		obj.name = "홍길동";
+		obj.age = 25;
+		obj.address = "경기도";
+		
+		// object to json: JS -> 서버 전송을 위해 변경
+		let jsonStr = JSON.stringify(obj);
+		console.log(obj, typeof(obj)); // object
+		console.log(jsonStr, typeof(jsonStr)); // string
+		
+		console.log(obj.name);
+		console.log(jsonStr.name); // undefined: 문자열에 속성이 어디있어
+		
+		// json to object: 서버 -> JS 전송 후 변경
+		var obj2 = JSON.parse(jsonStr);
+		console.log(obj2, typeof(obj2));
+		console.log(obj2.name);
+		
+		// obj와 obj2는 완전 다른 객체임!!!! 비교 대상이 아니야
+
+	}
+	function call9(){
+		var stooges = [{name: 'c', age: 40}, {name: 'a', age: 50}, {name: 'b', age: 60}];
+		stooges = _.sortBy(stooges, 'name'); // 오름차순
+		
+		for(var idx in stooges){
+			here.innerHTML += `<p>${idx}번째: ${stooges[idx].name}, ${stooges[idx].age}</p>`;
+		}
+	}
+	function call10(){}
+</script>
+</head>
+<body>
+	<h1>JS 내장 객체 배우기~</h1>
+	<button id="btn1">기본자료형vs객체</button>
+	<button id="btn2">Array 객체</button>
+	<button id="btn3">sort 예제: 성적 내림차순</button>
+	<button id="btn4">join</button>
+	<button id="btn5">map</button>
+	<button id="btn6">filter</button>
+	<button id="btn7">reduce</button>
+	<button id="btn8">json</button>
+	<button id="btn9">underscore library</button>
+	<button id="btn10"></button>
+	
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>
