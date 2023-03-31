@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>event에 대하여</title>
+<script>
+	window.onload = function () {
+		// =을 만나면 오른쪽 먼저 해석
+		// event handler(event listener)를 왼쪽의 이벤트 속성에 할당한다. (함수 수행 X)
+		// -> 이벤트가 발생하면 함수가 호출되는 것! 따라서 괄호가 없어 (call() -> call)
+		btn1.onclick = call1; // event handler 추가
+		btn2.onclick = call2;
+		btn3.onclick = call3;
+		btn4.onclick = call4;
+		
+		form1.onsubmit = validation;
+		form2.onsubmit = check;
+		btnSend.onclick = check2;
+		
+		btn5.onclick = call5;
+		btn6.onclick = call6;
+		btn7.onclick = call7;
+		btn8.onclick = call8;
+		btn9.onclick = call9;
+		btn10.onclick = call10;
+	};
+	
+	function call1(){
+		alert(this.innerHTML);
+		here.innerHTML = this.innerHTML; // 현재 객체가 btn1이기 때문에 this는 btn1임!
+	}
+	function call2(){
+		btn1.onclick = null; // event handler 삭제
+		here.innerHTML = "여기";
+		this.style.backgroundColor = "Coral";
+		btn1.style.backgroundColor = "gray";
+	}
+	function call3(event){
+		var str = "";
+		for(let key in event) {
+			str += `${key} --- ${event[key]}<br>`;
+			console.log(key, " ** ", event[key]);
+		}
+		here.innerHTML = str;
+	}
+	function call4(){
+		alert("btn2를 강제 실행해보자!");
+		btn2.onclick();
+	}
+	
+	function validation () {
+		// 조건: id의 길이가 5 이상
+		alert("확인!!!!");
+	
+		var userid = document.querySelector("#userid").value;
+		
+		if(userid.length < 5) {
+			alert("아이디는 5자 이상..");
+			return false; // 서버에 전송하는 행위를 막음 (페이지 이동 X)
+		} 
+		
+		var pass1 = document.querySelector("#userpass1").value;
+		var pass2 = document.querySelector("#userpass2").value;
+		
+		if(pass1 !== pass2) {
+			alert("비밀번호가 서로 다르다..");
+			document.querySelector("#userpass2").value = "";
+			document.querySelector("#userpass1").focus();
+			return false;
+		}
+	}
+	
+	
+	function check () {
+		// 앞자리 6, 뒷자리 7 유효성 확인
+		var front = document.querySelector("#jumin1").value;
+		var back = document.querySelector("#jumin2").value;
+		
+		if(front.length != 6 || back.length != 7) {
+			alert("주민번호 입력 오류..")
+			document.querySelector("#jumin1").focus();
+			return false;
+		} 
+	}
+	function check2 () {
+		// 앞자리 6, 뒷자리 7 유효성 확인
+		var front = document.querySelector("#jumin1").value;
+		var back = document.querySelector("#jumin2").value;
+		
+		if(front.length != 6 || back.length != 7) {
+			alert("주민번호 입력 오류..")
+			document.querySelector("#jumin1").focus();
+			return ;
+		} 
+		// location.href = `2.jsp?jumin1=123456&jumun2=1234567&gender=man`;
+		var action = document.querySelector("#form2").getAttribute("action");
+		
+		
+	}
+	function focusChange (obj) {
+		console.log(obj.value);
+	}
+	function genderCheck (num) {
+		var gender = num.substr(0, 1);
+		console.log(gender);
+		var man = document.querySelector("input[value='man']");
+		var woman = document.querySelector("input[value='woman']");
+		
+		if(gender == 1 || gender == 3) {
+			woman.removeAttribute("checked"); // 지우는 코드를 먼저 해야 함!!!!!!!
+			man.setAttribute("checked", "checked");	
+		}
+		else if (gender == 2 || gender == 4) {
+			man.removeAttribute("checked");	
+			woman.setAttribute("checked", "checked");
+		}
+		else {
+			alert("주민번호를 제대로 입력해..");
+			man.removeAttribute("checked");	
+			woman.removeAttribute("checked");
+		}
+	}
+	
+	function call5(){}
+	function call6(){}
+	function call7(){}
+	function call8(){}
+	function call9(){}
+	function call10(){}
+	
+	
+</script>
+</head>
+<body>
+	<h1>event 배우기~</h1>
+	<ul>
+		<li>event 속성: on~~</li>
+		<li>event handler, listener: function</li>
+	</ul>
+	<button id="btn1">handler추가</button>
+	<button id="btn2">handler제거</button>
+	<button id="btn3">event속성</button>
+	<button id="btn4">event강제호출</button>
+	<button id="btn5">default이벤트</button>
+	<button id="btn6"></button>
+	<button id="btn7"></button>
+	<button id="btn8"></button>
+	<button id="btn9"></button>
+	<button id="btn10"></button>
+
+	<hr>
+	<form id="form1" action="1.jsp"> 
+	<!-- 
+	onsubmit="return validation ()"
+	validation은 return 값이 있기 때문에 inline으로 작성하려면 마찬가지로 return을 작성해야 함! 
+	-->
+		아이디: <input id="userid" name="userid" value="hr">
+		비밀번호: <input id="userpass1" name="userpass1" value="1234">
+		비밀번호확인: <input id="userpass2" name="userpass2" value="4321">
+		<input type="submit" value="서버로 전송">
+	</form>
+	
+	<hr>
+	<form id="form2" name="form" action="2.jsp">
+  	<fieldset>
+    	<legend>개인정보</legend>
+		<label for="jumin1">주민번호</label>
+		<input type="text" name="jumin1" id="jumin1" size="6"  maxlength="6" onkeyup="focusChange(this);" value="123456"/> -
+		<input type="text" name="jumin2" id="jumin2" size="7" maxlength="7" onblur="genderCheck( this.value , form )" value="1234567"/> 
+		<br/> <br/>
+		<div id="display"> </div> 
+		<label for="gender">성별</label>
+		<input type="radio" name="gender" value="man" checked="checked" disabled="disabled"/>남자
+		<input type="radio" name="gender" value="woman" disabled="disabled"/>여자
+		<input type="submit" value="check(submit)"/>
+		<input type="button" value="check(button)" id="btnSend"/>
+	</fieldset>
+ 
+</form>
+
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>

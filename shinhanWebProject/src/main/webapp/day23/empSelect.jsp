@@ -12,11 +12,67 @@ List<EmpVO> emplist = eService.selectAll();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- day25? bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- day28 jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+	$(function () {
+		// 선생님
+		$("thead tr th").click(function(e){
+			var trNum = $(this).closest("th").prevAll().length; // 내가 클릭한 게 전체 th 중 몇 번째 th인가
+			//$(this).find(" ~ th").css("background-color", "white");
+			//$(this).css("background-color", "orange");
+			var a = $("tbody tr").each(function(index, item){ // tr을 배열로 둠
+				var col = $(item).find("td:nth-child(" + (trNum+1) + ")");
+				console.log(col);
+				$(item).find("td").css("background-color", "white");
+				$(col).css("background-color", "orange");
+			});
+			console.log(a);
+		});
+		
+		$("#btn1").click(function () {
+			$("tr > td:nth-child(2):contains('S')").css("color", "red");
+		});
+		
+		$("#btn2").click(function () {
+			$("tbody tr:even").css("background", "pink");
+			$("tbody tr:odd").css("background", "white");
+		});
+		$("#btn3").click(function() {
+			var selector = "tr > td:nth-child(8)";
+			
+			$(selector).each(function(idx, item){
+				var sal = parseInt($(item).html()) + 1;
+				if(sal >= 5000) {
+					$(item).css("background-color", "lightblue");
+				}
+			}); 
+		});
+		$("#btn4").click(function(){
+			var arr = $("tr>td:nth-child(1)");
+				$.each(arr, function(index, item){
+				console.log($(item).text());
+				if(parseInt($(item).text())%2==1){
+				$(item).parent().css("background-color", "lightgreen");
+				}
+			});
+		});
+		
+		// 나
+		$("#select").change(function () {
+			var selector = "tr > td:nth-child(7)";
+			$(selector).each(function (idx, item) {
+				console.log(item);
+			});
+		});
+	});
+</script>
 <title>Insert title here</title>
 <style>
 /* 
@@ -64,8 +120,22 @@ h1 {
 <body>
 	<div id="container" class="container mt-3">
 		<h1>직원목록</h1>
+		<!-- day2? -->
 		<button onclick="location.href='emp_insert.html'" type="button" class="btn btn-outline-success">직원등록(버튼)</button>
 		<a type="button" class="btn btn-outline-success" href="emp_insert.html">직원등록(a태그)</a>
+		<!-- day28 jQuery -->
+		<button id="btn1">이름에 S 들어가는 직원</button>
+		<button id="btn2">짝수번째 직원</button>
+		<button id="btn3">급여가 5000 이상인 직원</button>
+		<button id="btn4">커미션 받는 직원</button>
+		<button id="btn5">q</button>
+		
+		<select id="select">
+			<option selected>AD_PRES</option>
+			<option>IT_PROG</option>
+			<option>AD_VP</option>
+			<option>FI_MGR</option>
+		</select>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -88,7 +158,7 @@ h1 {
 				for (EmpVO emp : emplist) {
 				%>
 				<tr>
-					<td><%=emp.getEmployee_id()%></td>
+					<td id="emp_id"><%=emp.getEmployee_id()%></td>
 					<td><%=emp.getFirst_name()%></td>
 					<td><%=emp.getLast_name()%></td>
 					<td><%=emp.getEmail()%></td>

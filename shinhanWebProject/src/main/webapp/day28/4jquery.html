@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+	var arr = [];
+	arr.push({"stdId":100, "stdName":"홍길동", homepage:"https://www.google.com"});
+	arr.push({"stdId":200, "stdName":"김철수", homepage:"../day23/empSelect.jsp"});
+	arr.push({"stdId":300, "stdName":"이영희", homepage:"../day23/emp_insert.html"});
+	
+	$(function () {
+		// jQuery
+		var output = "<h2>jQuery each</h2><ul>";
+		$.each(arr, function (idx, item) {
+			output += `<li>${idx}: ${item.stdName} 사람 - <a href='${item.homepage}'>${item.stdId}학번의 홈페이지</a></li>`;
+		});
+		output += "</ul>";
+		$("#here").html(output);
+		
+		// JS
+		output += "<br><hr><br><h2>JS forEach</h2><ul>";
+		arr.forEach(function (item, idx) {
+			output += `<li>${idx}: ${item.stdName} 사람 - <a href='${item.homepage}'>${item.stdId}학번의 홈페이지</a></li>`;
+		});
+		output += "</ul>";
+		$("#here").html(output);
+	});
+</script>
+</head>
+<body>
+	<div id="here"></div>
+</body>
+</html>

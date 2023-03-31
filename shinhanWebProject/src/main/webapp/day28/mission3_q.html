@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	<style>
+		body{
+			font-size:9pt;	
+		}
+		
+		div{
+			border: 1px solid #999999;
+			margin:20px;
+			margin-bottom:20px;
+		}
+		div div{
+			border: 1px dotted #CCC;
+			font-size:20px;	
+		}
+		
+	</style>
+	<script>
+		// 고전 방식, DOM level0의 기본 이벤트 모델 (window.onload, btn.onclick)
+		// 인라인 이벤트 모델은 <button onclick=""> 이거
+		window.onload=function(){
+			document.querySelector("#stop").onclick = stopFunc;
+			
+			var cnt = 0;
+			
+			// var start = setInterval(f, 1000);
+			var start = setInterval(changeImage, 1000);
+			
+			function stopFunc () {
+				clearInterval(start);
+			}
+			
+			// 내 풀이
+			function f () {
+				// 나처럼 계속 바꾸라는 의미가 아니야.. 이미 있던 이미지의 src를 바꾸라는 의미야..
+				cnt = (cnt % 10) + 1;
+				
+				var div = document.querySelector("#panel");
+				var img = document.createElement("img");
+				
+				img.src = `images/img${cnt}.jpg`;
+				img.alt = `img${cnt}`;
+				
+				if(div.childElementCount === 0){
+					div.appendChild(img);
+				}
+				else {
+					var pre = document.querySelector("#panel img");
+					div.replaceChild(img, pre);
+				} 
+			}
+			
+			// 선생님 풀이
+			var num = 1;
+			function changeImage() {
+				document.querySelector("#img1").setAttribute("src", `images/img${(num++) % 10 + 1}.jpg`);
+			}
+		}
+		
+		
+	</script> 
+
+</head>
+
+<body>	
+	<div> 
+		<h4>미션3 - 1초에 한번씩 이미지를 순차적으로 변환시켜 주세요.<br> 단, 이미지는 9개가 있습니다. 9개까지 출력된 경우, 다시 첫번째 이미지부터 출력시켜주세요.</h4>
+		<div id="panel">
+			<img id="img1" src="images/img1.jpg" alt="이미지">
+		</div>
+		<button id="stop">멈춰!</button>
+	</div>   
+</body>
+</html>

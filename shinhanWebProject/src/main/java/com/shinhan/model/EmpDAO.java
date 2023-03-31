@@ -62,7 +62,7 @@ public class EmpDAO {
 						PHONE_NUMBER,
 						HIRE_DATE,
 						JOB_ID,
-						f_tax(salary) salary,
+						salary,
 						COMMISSION_PCT,
 						MANAGER_ID,
 						DEPARTMENT_ID

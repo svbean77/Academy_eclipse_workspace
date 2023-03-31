@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+	/* 
+	// JavaScript
+	window.onload = function () { alert('onload1'); };
+	window.onload = function () { alert('onload2'); }; // 이것만 실행됨 (같은 이름은 덮어쓰기가 되니까)
+	
+	// jQuery
+	$(document).ready(function () { alert("jQuery load1"); });
+	$(document).ready(function () { alert("jQuery load2"); }); // jQuery는 덮어쓰지 않고 다 실행!
+	$(function () { alert('jQuery load3'); }); // (document).ready를 가장 많이 쓰기 때문에 생략 가능!
+	 */
+	 $(function () {
+		 // 선택자
+		 // 태그 선택자
+		 $("h1, p").css('color', 'green');
+		 $("h1").css('background-color', 'yellow');
+		 
+		 // 속성 선택자
+		 $("input[type='text']").css('background-color', 'PaleGreen');
+		 $("input[type='text']").val("Hello world~!");
+		 
+		 // 복수 선택자
+		 $("input[type='search'][value]").css('background-color', 'Thistle');
+		 
+		 // 필터 선택자
+		 var subject = $("select > option:selected").val();
+		 alert(subject);
+		 		 
+		 // 위치 필터 선택자
+		 $("h1:first").html(subject);
+		 $("h1:last").html(subject);
+	 });
+</script>
+</head>
+<body>
+	<h1>jQuery h1</h1>
+	<h1>jQuery h1</h1>
+	<h1>jQuery h1</h1>
+	<h1>jQuery h1</h1>
+	<h1>jQuery h1</h1>
+	
+	<hr>
+	
+	<p>jQuery 문법 P</p>
+	<p>jQuery 문법 P</p>
+	<p>jQuery 문법 P</p>
+	<p>jQuery 문법 P</p>
+	<p>jQuery 문법 P</p>
+	
+	<hr>
+	
+	<input>
+	<input type="text">
+	<input type="text">
+	<input type="text">
+	<input type="password">
+	<input type="number" value="777">
+	<input type="search" value="jQuery">
+	
+	<hr>
+	
+	<select>
+		<option>HTML5</option>
+		<option>CSS3</option>
+		<option selected>JavaScript</option>
+		<option>jQuery</option>
+	</select>
+	
+	<hr>
+	<h1>마지막이다</h1>
+</body>
+</html>

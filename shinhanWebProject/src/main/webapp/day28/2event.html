@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	div, p {
+		border: 1px solid gray;
+		padding: 10px;
+	}
+</style>
+<script>
+	// 표준 방법
+	window.addEventListener('load', init);
+	function init () {
+		document.querySelector("#myp").onclick = function (e) {
+			alert("p 누름~");
+			e.stopPropagation(); // 부모로의 이벤트 전달을 막음! (버블링 X)
+			e.cancelBubble = true; // IE (근데 이제 안쓰잖아 브라우저)
+		}
+		
+		var nodeList = document.querySelectorAll("div");
+		for(let i = 0; i < nodeList.length; i++) {
+			if (i > 1) {
+				nodeList[i].onclick = function (e) {
+					alert('전달 막은 div 누름');
+					e.stopPropagation();
+				}
+			}
+		}
+		/* 
+		// 표준 방법이 아님
+	window.onload = function () {
+		document.querySelector("#myp").onclick = function (e) {
+			alert("p 누름~");
+			e.stopPropagation(); // 부모로의 이벤트 전달을 막음! (버블링 X)
+			e.cancelBubble = true; // IE (근데 이제 안쓰잖아 브라우저)
+		}
+		
+		var nodeList = document.querySelectorAll("div");
+		for(let i = 0; i < nodeList.length; i++) {
+			if (i > 1) {
+				nodeList[i].onclick = function (e) {
+					alert('전달 막은 div 누름');
+					e.stopPropagation();
+				}
+			}
+		}
+		 */
+		// IE 이벤트 모델
+		// btn1.attachEvent('onclick', function () { alert(this.innerHTML); });
+		btn2.addEventListener('click', function () { alert(this.innerHTML); });
+	};
+</script>
+</head>
+<body>
+	<h1>JS event 전달 배우기~</h1>
+	
+	<h3>버블링~</h3>
+	<div onclick="alert('outer div(AA) 누름')">AA
+		<div onclick="alert('inner div(BB) 누름')">BB
+			<p onclick="alert('p 누름')">p태그입니다.</p> <!-- p의 onclick을 했는데 다 나옴 -> 버블링 (같은 이름의 이벤트니까 버블링이 발생하는거야) -->
+			<input type="text" onchange="alert('input 값 바꿈');"> <!-- input은 onclick이 없는데 이벤트 발생, onchange는 부모들은 없으니 전달 안 됨! -->
+		</div>
+	</div>
+	
+	<h3>전달 막기!!~</h3>
+	<div>AA
+		<div>BB
+			<p id="myp">p태그입니다.</p> 
+			<input type="text" onchange="alert('input 값 바꿈');"> 
+		</div>
+	</div>
+	
+	<br><hr>
+	<button id="btn1">IE 이벤트모델</button>
+	<button id="btn2">표준 이벤트모델</button>
+</body>
+</html>

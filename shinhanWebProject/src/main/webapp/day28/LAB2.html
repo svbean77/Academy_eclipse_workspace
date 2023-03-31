@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	function Check(num) {
+		// 내 풀이
+		var div = document.querySelector("#inputImage");
+		var img = document.createElement("img");
+		img.src = `images/img${num}.jpg`;
+		img.alt = `내사진${num}`;
+		
+		if(div.childElementCount === 0) {
+			div.appendChild(img);
+		} else {
+			var pre = document.querySelector("#inputImage img");
+			div.replaceChild(img, pre);			
+		}
+		/* 
+		// 선생님 풀이 1. innerHTML
+		var imageName = "";
+		if(num == 1) {
+			imageName = "images/img1.jpg";
+		} else if (num == 2) {
+			imageName = "images/img2.jpg";
+		}
+		
+		var obj = document.querySelector("#inputImage");
+		obj.innerHTML = "<h2>선생님 풀이 1. innerHTML</h2>"
+		obj.innerHTML += `<img src=${imageName}>`;
+
+		// 
+		var element = document.createElement("img");
+		element.src = imageName;
+		obj.innerHTML = "<h2>선생님 풀이 2. createElement</h2>"
+		obj.appendChild(element);
+		 */
+	}
+</script>
+</head>
+<body>
+	<div id="inputImage"></div>
+	<form>
+		<input type="button" value="내사진1" onclick="Check(1)" /> 
+		<input type="button" value="내사진2" onclick="Check(2)" />
+	</form>
+
+</body>
+</html>
