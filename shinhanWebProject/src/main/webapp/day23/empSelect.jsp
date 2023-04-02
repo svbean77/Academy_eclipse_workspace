@@ -67,8 +67,15 @@ List<EmpVO> emplist = eService.selectAll();
 		// 나
 		$("#select").change(function () {
 			var selector = "tr > td:nth-child(7)";
+			
 			$(selector).each(function (idx, item) {
-				console.log(item);
+				var sel = $("#select").val();
+				if(sel == $(item).text()) {
+					$(item).css("background-color", "pink");
+				}		
+				else {
+					$(item).css("background-color", "white");
+				}
 			});
 		});
 	});
@@ -120,14 +127,14 @@ h1 {
 <body>
 	<div id="container" class="container mt-3">
 		<h1>직원목록</h1>
-		<!-- day2? -->
+		<!-- day24 -->
 		<button onclick="location.href='emp_insert.html'" type="button" class="btn btn-outline-success">직원등록(버튼)</button>
 		<a type="button" class="btn btn-outline-success" href="emp_insert.html">직원등록(a태그)</a>
 		<!-- day28 jQuery -->
 		<button id="btn1">이름에 S 들어가는 직원</button>
 		<button id="btn2">짝수번째 직원</button>
 		<button id="btn3">급여가 5000 이상인 직원</button>
-		<button id="btn4">커미션 받는 직원</button>
+		<button id="btn4">직원번호 홀수인 직원</button>
 		<button id="btn5">q</button>
 		
 		<select id="select">
