@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.enter {
+	background-color: orange;
+	color: blue;
+}
+
+.leave {
+	background-color: pink;
+	color: red;
+}
+</style>
+<script src="../js/jquery-3.6.4.min.js"></script>
+<script>
+$(function () {
+	// on(): 이벤트와 이벤트 핸들러를 연결
+	/* 
+	// 하나씩 이벤트를 넣는 경우
+	$("h1").on("mouseenter", function () {
+		$(this).removeClass("leave");
+		$(this).addClass("enter");
+	});
+	$("h1").on("mouseleave", function () {
+		$(this).removeClass("enter");
+		$(this).addClass("leave");
+	})
+	 */
+	 
+	// 객체로 묶어 한 번에 이벤트 연결 
+	var obj = {};
+	obj.mouseenter = function () {
+		$(this).removeClass("leave");
+		$(this).addClass("enter");
+	};
+	obj.mouseleave = function () {
+		$(this).removeClass("enter");
+		$(this).addClass("leave");
+	};
+	$("#h1").on(obj);
+	
+	$("#h2").hover(function () {
+		$(this).removeClass("leave");
+		$(this).addClass("enter");
+	}, function () {
+		$(this).removeClass("enter");
+		$(this).addClass("leave");
+	});
+	
+	$("div.aa").on("click", function () {
+		/* 
+		var h = $(this).find("h1").text();
+		var p = $(this).find("p").text();
+		 */
+		 
+		// 여기서의 this = context: selector가 적용하는 범위 (저 범위 안에서의 h1, 저 범위 안에서의 p) 
+		var h = $("h1", this).text();
+		var p = $("p", this).text();
+		alert(h + " -- " + p);
+	});
+	
+	$("p").on("click", function (event) {
+		alert("p 누름!!!!!!!!");
+		console.log(event.pageX, event.pageY);
+		event.stopPropagation(); // 이벤트 전달 막기 -> 캡처링 버블링, 취소 등
+	});
+	
+	$("#btn1").click(function () {
+		alert("버튼 누르기~");
+	});
+	$("#btn2").click(function () {
+		$("#btn1").trigger("click");
+	});
+	
+	$("#all-check").change(function () {
+		if(this.checked) {
+			$("#check-item").children().prop("checked", true);
+		}else{
+			$("#check-item").children().prop("checked", false);
+		}
+	});
+});
+</script>
+<style>
+	div {
+		border: 5px dotted orange;
+		padding: 20px;
+	}
+</style>
+</head>
+<body>
+<h1 id="h1">jQuery event 연습~</h1>
+<h1 id="h2">jQuery event 연습~</h1>
+
+<div class="aa">
+	<h1>jQuery event 연습~!</h1>
+	<p onclick="alert('p태그 누름 (버블 테스트)');">현재객체</p>
+</div>
+
+<hr>
+<h3>기본 이벤트 제거 return false</h3>
+<form action="1.jsp" onsubmit="return call();">
+	아이디: <input type="text" name="userid">
+	비밀번호: <input type="password" name="userpass">
+	<input type="submit" value="제출">
+</form>
+<hr>
+<h3>기본 이벤트 제거 prevendDefault</h3>
+<form action="1.jsp" id="frm">
+	아이디: <input type="text" name="userid">
+	비밀번호: <input type="password" name="userpass">
+	<input type="submit" value="제출">
+</form>
+
+<hr>
+<button id="btn1">버튼1</button>
+<button id="btn2">버튼2</button>
+
+<hr>
+<input type="checkbox" id="all-check">
+<label>All</label>
+<div id="check-item">
+	<input type="checkbox">
+	<label>A Option</label>
+	<input type="checkbox">
+	<label>B Option</label>
+	<input type="checkbox">
+	<label>C Option</label>
+</div>
+<script>
+	function call () {
+		var id = $("input[name='userid']").val();
+		var pw = $("input[name='userpass']").val();
+		
+		alert(id + ": " + pw)
+		
+		if(id.length < 5) return false; // 서버로 전송을 취소하겠다.
+	}
+	
+	$(function () {
+		$("#frm").on("submit", function () {
+			var id = $("input[name='userid']").val();
+			var pw = $("input[name='userpass']").val();
+			
+			alert(id + ": " + pw)
+			
+			if(id.length < 5) {
+				event.preventDefault();
+			}
+		});
+	});
+</script>
+</body>
+</html>

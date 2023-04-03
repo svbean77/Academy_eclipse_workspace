@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+$.noConflict(); // jQuery에서 jQuery를 더이상 사용하지 않겠다!: $(); -> jQuery();
+
+jQuery(document).ready(function () {});
+jQuery(function () {	
+	// 동적인 내용은 JavaScript, jQuery로 작성! ex. 버튼을 눌렀다
+	jQuery("#btn1").click(function () {
+		jQuery("p:nth-of-type(odd)").css("background-color", "lightgreen");
+	});
+	
+	jQuery("#btn2").click(function () {
+		jQuery("p").removeClass("mystyleB");
+		jQuery("p").addClass("mystyleA");
+	});
+	jQuery("#btn3").click(function () {
+		jQuery("p").removeClass("mystyleA");
+		jQuery("p").addClass("mystyleB");
+	});
+	
+	// 상황에 따라 적용시킬 클래스를 다르게 하고 싶다! (홀짝홀짝 다르게)
+	jQuery("#btn4").click(function () {
+		jQuery("p").each(function (idx, item) {
+			// 현재의 나는 this or item
+			jQuery(item).addClass("mystyle" + (idx % 2 + 1));
+			jQuery(this).addClass("mystyle" + (idx % 2 + 1));
+		});
+	});
+	jQuery("#btn5").click(function () {
+		jQuery("p").removeClass("mystyle1");
+		jQuery("p").removeClass("mystyle2");
+		jQuery("p").removeClass("mystyleA");
+		jQuery("p").removeClass("mystyleB");
+	});
+	
+	jQuery("#btn6").click(function () {
+		var obj = {};
+		obj.myname = "홍길동";
+		obj.age = 20;
+		
+		var obj2 = {"address": "경기도 무슨시", "phone": "010-1234-5678"};
+		
+		jQuery.extend(obj, obj2, {major:"정통"});
+		console.log(obj);
+		
+		var str = "<ul>";
+		jQuery.each(obj, function (key, item) {
+			str += `<li>${key} -- ${item}</li>`
+		});
+		jQuery("#here").html(str);
+	});
+	jQuery("#btn7").click(function () {});
+	jQuery("#btn8").click(function () {});
+	jQuery("#btn9").click(function () {});
+	jQuery("#btn10").click(function () {});
+});
+</script>
+<style>
+/* 정적인 내용은 html, css에 작성하는 것! 시작하자마자 색 변경은 정적이잖아 (내 동작에 의해 바뀌는 것이 아님) -> css로 작성 */
+p:nth-of-type(2n) {
+	background-color: yellow;
+}
+.mystyleA {
+	border: 5px dotted pink;
+}
+.mystyleB {
+	border: 5px dotted green;
+}
+
+.mystyle1 {
+	border: 5px dotted pink;
+}
+.mystyle2 {
+	border: 5px dotted green;
+}
+</style>
+</head>
+<body>
+<h1>jQuery 연습 2</h1>
+<button id="btn1">홀수찾기</button>
+<button id="btn2">addClassA</button>
+<button id="btn3">addClassB</button>
+<button id="btn4">addClass 상황에 따라 다르게</button>
+<button id="btn5">removeClass 다 지워</button>
+<button id="btn6">object확장</button>
+<button id="btn7"></button>
+<button id="btn8"></button>
+<button id="btn9"></button>
+<button id="btn0"></button>
+
+<p>p1</p>
+<p>p2</p>
+<p>p3</p>
+<p>p4</p>
+<p>p5</p>
+<p>p6</p>
+
+<div id="here"></div>
+</body>
+</html>

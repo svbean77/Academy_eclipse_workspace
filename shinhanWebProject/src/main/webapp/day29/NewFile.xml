@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<friends>
+	<friend>
+		<name>김철수</name>
+		<major>컴공</major>
+	</friend>
+	<friend>
+		<name>김영희</name>
+		<major>정통</major>
+	</friend>
+	<friend>
+		<name>홍길동</name>
+		<major>수학</major>
+	</friend>
+</friends>

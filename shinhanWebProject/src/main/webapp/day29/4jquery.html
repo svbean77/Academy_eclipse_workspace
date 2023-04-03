@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	#here div {
+		border: 1px solid red;
+	}
+	img {
+		width: 300px;
+		height: 300px
+	}
+</style>
+<script src="../js/jquery-3.6.4.min.js"></script>
+<script>
+$(function () {
+	$("#btn1").click(function () {
+		$("img").css("border", "3px solid green");
+		var obj = {"width":function (idx) { // img의 인덱스가 들어갈 것
+			return (idx+1) * 100;
+		}, "height":200}; // 속성을 여러 개 줄 때는 object 사용
+		$("img").attr(obj); // 대상(img)의 몇 번째(obj 내 idx)인지를 실행
+	});
+	
+	$("#btn2").click(function () {
+		$("img").removeAttr("width");
+		$("img").removeAttr("height");
+		$("img").removeAttr("border");
+	});
+	
+	$("#btn3").click(function () {
+		var color = ["orange", "green", "red", "purple", "blue"];
+		$("img").css("border", function (idx) {
+			console.log(color[idx]);
+			return "3px solid " + color[idx];
+		});
+	});
+	
+	$("#btn4").click(function () {
+		var str = "<ul>";
+		$("img").each(function (idx, item) {
+			str += `<li>${$(item).attr("src")}</li>`;
+		});
+		$("#here").html(str + "</ul>"); // html 태그를 인식
+	});
+	
+	$("#btn5").click(function () {
+		var str = "<ul>";
+		$("img").each(function (idx, item) {
+			str += `<li>${$(item).attr("src")}</li>`;
+		});
+		$("#here").text(str + "</ul>"); // 모두 문자열로 인식 -> 단순 문자열일 때 사용
+	});
+	$("#btn6").click(function () {
+		$("#here").remove(); // 객체를 지움
+	});
+	$("#btn7").click(function () {
+		$("#here").empty(); // 내용만 지움
+	});
+	
+	$("#btn8").click(function () {
+		$("<h1></h1>").text("점심시간 appendTo").appendTo("#here");
+		$("<h1>오후 수업 시작! prependTo</h1>").prependTo("#here");
+		$("<h1>안녕 insertBefore</h1>").insertBefore("#here");
+		$("<h1>반가워 insertAfter</h1>").insertAfter("#here");
+		
+		$("#here").append("<h3>나는 append</h3>");
+		$("#here").prepend("<h3>나는 prepend</h3>");
+		$("#here").before("<h3>나는 before</h3>");
+		$("#here").after("<h3>나는 after</h3>");		
+	});
+	$("#btn9").click(function () {
+		var arr = [];
+		arr.push({name:"김철수", address:"경기도"});
+		arr.push({name:"박철수", address:"서울시"});
+		arr.push({name:"이철수", address:"강원도"});
+		arr.push({name:"최철수", address:"제주도"});
+		arr.push({name:"홍철수", address:"인천"});
+		
+		for(let i = 0; i < arr.length; i++) {
+			$("#here").append("<div></div>");
+		}
+		
+		$("#here div").append(function (idx) {
+			console.log(idx);
+			$(this).append(`<h1>${arr[idx].name}</h1>`);
+			$(this).append(`<h2>${arr[idx].address}</h2>`);
+		});
+	});
+	$("#btn10").click(function () {
+		setInterval(function () {
+			$("#mypicture img").first().appendTo($("#mypicture"));
+		}, 1000);
+	});
+});
+</script>
+</head>
+<body>
+<h1>jQuery 문서 객체(DOM)를 추가, 수정</h1>
+<button id="btn1">img속성추가</button>
+<button id="btn2">img속성제거</button>
+<button id="btn3">CSS</button>
+<button id="btn4">html</button>
+<button id="btn5">text</button>
+<button id="btn6">remove div</button>
+<button id="btn7">empty div</button>
+<button id="btn8">객체생성</button>
+<button id="btn9">문서객체삽입 배열</button>
+<button id="btn10">객체이동</button>
+
+<hr>
+<div id="mypicture">
+<img src="../html5-css3-master/03/images/fantasy.jpg">
+<img src="../html5-css3-master/03/images/umbrella.jpg">
+<img src="../html5-css3-master/03/images/muffin.png">
+<img src="../html5-css3-master/03/images/automobile.svg">
+<img src="../html5-css3-master/03/images/gugudan-2.jpg">
+</div>
+
+<hr>
+<div id="here" style="border: 5px dotted green;"></div>
+</body>
+</html>

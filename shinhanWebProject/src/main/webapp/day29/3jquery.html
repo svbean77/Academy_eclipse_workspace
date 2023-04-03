@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.4.min.js"></script>
+<script>
+	$(function () {
+		$("#btn1").click(call1);
+		$("#btn2").click(call2);
+		$("#btn3").click(call3);
+		$("#btn4").click(call4);
+		$("#btn5").click(call5);
+		$("#btn6").click(call6);
+
+		$("button").last().click(call);
+	});
+	
+	var obj = {"background-color": "lightgreen", color: "red"};
+	var obj2 = {"background-color": "pink", color: "white", border: "3px solid gray"};
+	
+	function call1 () {
+		// 똑같은 상황이라면 쉬운 이 방법 사용이 좋다
+		$("p:nth-of-type(even)").css(obj); // 요소가 추가되어도 변하지 않도록 of-type으로 설정!
+		$("p:nth-of-type(2n+1)").css(obj2);
+	}
+	function call2 () {
+		$("p").filter(":nth-of-type(even)").css(obj);
+		$("p").filter(":nth-of-type(2n+1)").css(obj2);
+	}
+	function call3 () {
+		// 전체 적용, 짝수 적용, 홀수 적용 등 여러 방향이 있다면 이 방법이 좋다!
+		// p에서 짝수 선택 후 '한 단계 올라가서(end)' 홀수 선택
+		$("p").css("font-size", "30px").filter(":nth-of-type(even)").css(obj).end().filter(":nth-of-type(2n+1)").css(obj2);
+	}
+	
+	function call4 () {
+		$("p").eq(2).css("color", "red");
+		$("p").eq(-1).css("background-color", "yellow");
+		$("p").first().css("color", "green");
+		$("p").last().css("color", "blue");
+	}
+	
+	function call5 () {
+		var str = `
+			<friends>
+			<friend>
+				<name>김철수</name>
+				<major>컴공</major>
+			</friend>
+			<friend>
+				<name>김영희</name>
+				<major>정통</major>
+			</friend>
+			<friend>
+				<name>홍길동</name>
+				<major>수학</major>
+			</friend>
+		</friends>
+		`; // 나중에 프로젝트 할 때 긴 문자열 있으면 힘들게 쓰지 말고 그냥 백틱 사용하자~
+		
+		var obj = $.parseXML(str);
+		console.log(obj);
+		
+		var str = "<ul>";
+		
+		$(obj).find("friend").each(function (idx, item) {
+			console.log(idx, item);
+			var name = $(item).find("name").text();
+			str += `<li>${name}</li>`;
+		});
+		$("#here").html(str);
+	}
+	
+	function call () {
+		var txt = $(this).text();
+		if(txt === "활성화하기") {
+			$(this).text("비활성화하기");
+			$(this).parent().css("background","gray");
+			$(this).parent().find("span").text("활성화");
+		}
+		else {
+			$(this).text("활성화하기");
+			$(this).parent().css("background","white");
+			$(this).parent().find("span").text("비활성화");
+		}
+	}
+	
+	function call6 () {
+		var src = $("img").attr("src"); // 두 개면 첫 태그의 속성만 가져옴
+		console.log(src);
+		console.log("얘는 하나만 돌아");
+		
+		// 여러 개인 경우 loop를 돌려서 얻어야 함!!!!
+		$("img").each(function (idx, item) {
+			console.log($(item).attr("src"));
+		});
+	}
+</script>
+</head>
+<body>
+<h1>jQuery 연습 3</h1>
+<button id="btn1">filter X</button>
+<button id="btn2">filter O</button>
+<button id="btn3">filter O (코드 합치기)</button>
+<button id="btn4">위치(eq, first, last)</button>
+<button id="btn5">XML파싱</button>
+<button id="btn6">속성값 얻기</button>
+
+<hr>
+<div style="border: 5px dotted green; padding: 5px;">
+ <span>비활성화</span>
+ <button>활성화하기</button>
+</div>
+<img src="../html5-css3-master/images/muffin.png">
+<img src="../html5-css3-master/images/fork.png">
+
+<hr>
+<p>p1</p>
+<p>p2</p>
+<p>p3</p>
+<p>p4</p>
+<p>p5</p>
+<p>p6</p>
+
+<div id="here"></div>
+</body>
+</html>

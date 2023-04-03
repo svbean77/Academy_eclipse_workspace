@@ -23,6 +23,7 @@ List<EmpVO> emplist = eService.selectAll();
 <script>
 	$(function () {
 		// 선생님
+		// day28
 		$("thead tr th").click(function(e){
 			var trNum = $(this).closest("th").prevAll().length; // 내가 클릭한 게 전체 th 중 몇 번째 th인가
 			//$(this).find(" ~ th").css("background-color", "white");
@@ -48,7 +49,7 @@ List<EmpVO> emplist = eService.selectAll();
 			var selector = "tr > td:nth-child(8)";
 			
 			$(selector).each(function(idx, item){
-				var sal = parseInt($(item).html()) + 1;
+				var sal = parseInt($(item).html());
 				if(sal >= 5000) {
 					$(item).css("background-color", "lightblue");
 				}
@@ -63,8 +64,24 @@ List<EmpVO> emplist = eService.selectAll();
 				}
 			});
 		});
+		$("#select").change(function () {
+			var jobid = $(this).val();
+			
+			$("tr td").css("color", "black");
+			$("tr td:contains('" + jobid + "')").css("color", "red");
+		});
+		
+		// day29
+		var str = "";
+		var arr = ["IT_PROG", "PU_CLERK", "AD_VP", "FI_ACCOUNT", "FI_MGR", "ST_MAN"];
+		$.each(arr, function (idx, item) {
+			str += "<option>" + item + "</option>";
+			// str += `<option>${item}</option>`; // 왜 백틱이 안되지? item에 값이 들어가지 않아
+		});
+		$("#jobs").html(str); // html은 '넣어라'라는 의미
 		
 		// 나
+		// day28
 		$("#select").change(function () {
 			var selector = "tr > td:nth-child(7)";
 			
@@ -135,13 +152,18 @@ h1 {
 		<button id="btn2">짝수번째 직원</button>
 		<button id="btn3">급여가 5000 이상인 직원</button>
 		<button id="btn4">직원번호 홀수인 직원</button>
-		<button id="btn5">q</button>
 		
 		<select id="select">
-			<option selected>AD_PRES</option>
+			<option>AD_PRES</option>
 			<option>IT_PROG</option>
 			<option>AD_VP</option>
 			<option>FI_MGR</option>
+			<option>ST_MAN</option>
+			<option>PU_CLERK</option>
+		</select>
+		
+		<!-- day29 -->
+		<select id="jobs">
 		</select>
 		<table class="table table-hover">
 			<thead>
