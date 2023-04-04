@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.4.min.js"></script>
+<script>
+$(function () {
+	$("#btn1").on("click", function () {
+		// 서버에 요청 보내기! (전통적인 방식 -> 페이지 이동) 
+		// 1. form 이용해 action 보내기
+		// 2. location.href 이용해 주소 변경 -> 이거로 해보자
+		location.href = "../day23/empSelect.jsp";
+	});
+	$("#btn2").on("click", function () {
+		// 서버에 요청 보내기! 페이지 이동 없이 요청!!!!!!! -> Ajax
+		// Asynchronize JavaScript and XML
+		var xhr = new XMLHttpRequest(); // 객체 생성
+		xhr.open("get", "2.html", false); // 초기화 -> 지금은 동기 방식으로 해봄
+		
+		xhr.send(); // 전송
+		
+		$("#here").html(xhr.responseText); // 데이터를 받음
+	});
+	$("#btn3").on("click", function () {
+		var xhr = new XMLHttpRequest(); 
+		xhr.open("get", "2.html", true); 
+		
+		xhr.send(); 
+		
+		$("#here").html(xhr.responseText); // 데이터가 전송되기 전 찍어버리면 아무것도 안뜨잖아 -> 이러면 안돼!! onreadystatechange 사용!
+	});
+	$("#btn4").on("click", function () {
+		var xhr = new XMLHttpRequest(); 
+		xhr.open("get", "2.html", true); // 보통 대부분 비동기 방식을 사용함 -> 따라서 이 방식으로 적어야 함!
+		
+		xhr.onreadystatechange = function (){ // 도착 상태를 확인
+			if(xhr.readyState == 4 && xhr.status == 200) {
+				$("#here").html(xhr.responseText);
+			}
+		}; 
+		xhr.send();
+	});
+	
+	$("#btn5").on("click", function () {
+		var xhr = new XMLHttpRequest(); 
+		xhr.open("get", "emp.jsp", true);
+		
+		xhr.onreadystatechange = function (){
+			if(xhr.readyState == 4 && xhr.status == 200) {
+				var output = "";
+				var obj = JSON.parse(xhr.responseText);
+				output += `<input value='${obj.first_name}'>`;
+				output += `<input value='${obj.age}'>`;
+				
+				$("#here").html(output);
+			}
+		}; 
+		xhr.send();
+	});
+});
+</script>
+<script>
+$(function () {
+	$("#btn6").on("click", function () {
+		var empid = $("#empid").val();
+		
+		var xhr = new XMLHttpRequest();
+		xhr.open("get", "emp2.jsp?empid=" + empid, true);
+		
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState != 4 || xhr.status != 200) return; // 이 상황을 쓰지 않으면 데이터가 없는데 파싱을 시도! 따라서 데이터 옴, 성공함을 조건으로 적어야 함
+			var str = xhr.responseText;
+			var obj = JSON.parse(str);
+			console.log(obj);
+			
+			var output = "";
+			output += `이름: <input value='${obj.first_name}'>`;
+			output += `급여: <input value='${obj.salary}'>`;
+			
+			$("#here").html(output);
+		};
+		
+		xhr.send();
+	});
+	$("#btn7").on("click", function () {});
+	$("#btn8").on("click", function () {});
+	$("#btn9").on("click", function () {});
+	$("#btn10").on("click", function () {});
+});
+</script>
+</head>
+<body>
+	<h1>jQuery 연습!</h1>
+	<button id="btn1">location.href</button>
+	<button id="btn2">JS로 Ajax(동기)</button>
+	<button id="btn3">JS로 Ajax(비동기 그냥)</button>
+	<button id="btn4">JS로 Ajax(비동기 잘함)</button>
+	<button id="btn5">JSP로 연결</button>
+	<hr>
+	<input type="number" value="100" id="empid">
+	<button id="btn6">직원정보가져오기(JSON.parse)</button>
+	<hr>
+	<button id="btn7"></button>
+	<button id="btn8"></button>
+	<button id="btn9"></button>
+	<button id="btn10"></button>
+	
+	<hr>
+	
+	<div id="here">여기다</div>
+</body>
+</html>

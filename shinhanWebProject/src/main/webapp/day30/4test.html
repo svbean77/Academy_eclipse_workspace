@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="../js/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+	<div id="page">
+		<h1 id="header">목록</h1>
+		<h2>구입할 식료품</h2>
+
+		<ul id="list">
+			<li id="one" class="hot"><em>신선한</em>무화과</li>
+			<li id="two" class="hot">잣</li>
+			<li id="three" class="hot">꿀</li>
+			<li id="four">발사믹 식초</li>
+		</ul>
+	</div>
+	<div id="here">여기</div>
+	<script>
+		var firstElement = document.getElementById("one");
+		console.log(firstElement);
+		document.getElementById("three").innerHTML = "귤";
+		
+		var arr = ["사과", "바나나", "수박", "복숭아"];
+		$.each(arr, (idx, item) => { console.log(item); });
+		
+		emp={"firstName":"kim", salary:1000, deptid:10}
+		
+		$.ajax({
+			url: "/empInsert",
+			method: "post",
+			data: emp,
+			success: (result) => {
+			  	$("#here").html(result);
+			}
+		});
+	</script>
+</body>
+
+</html>

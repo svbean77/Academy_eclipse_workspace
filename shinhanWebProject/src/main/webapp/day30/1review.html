@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.4.min.js"></script>
+<script>
+var myName = "이름 --- window의 속성"; // 함수 밖(전역) -> window의 속성이 됨! window.myName
+$(function () {
+	var myName = "이름 --- function의 지역 변수"; // 지역변수 -> window의 소유가 아님!
+	var obj = {myName: "이름 --- object의 키", age: 20};
+	
+	$("#btn1").on("click", function () {
+		print.call(obj, "btn1 call"); // 하나의 파라미터 전달, 지금 실행
+	});
+	$("#btn2").on("click", function () {
+		print.apply(obj, ["btn2 apply"]); // 여러 개의 파라미터 전달, 지금 실행
+	});
+	$("#btn3").on("click", function () {
+		var f = print.bind(obj); // 함수에게 주체 할당, 연결만!!! 지금 실행 아님!!!!
+		f("btn3 bind"); // 받은 후 나중에 실행
+	});
+	$("#btn4").on("click", function () {
+		print("JavaScript"); // 여기서의 this는 window -> print 함수는 window의 것이기 때문에!
+	});
+});
+
+function print (param) {
+	$("#here").html(param + " ** " + this.myName); // 여기의 this는 그때마다 달라!!!
+} // window의 소유!
+</script>
+</head>
+<body>
+	<h1>jQuery 연습!</h1>
+	<button id="btn1">call</button>
+	<button id="btn2">apply</button>
+	<button id="btn3">bind</button>
+	<button id="btn4">그냥 호출</button>
+	
+	<hr>
+	
+	<div id="here">여기다</div>
+</body>
+</html>
