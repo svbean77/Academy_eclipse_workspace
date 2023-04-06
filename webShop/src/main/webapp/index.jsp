@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- <meta http-equiv="refresh" content="3;auth/login.jsp"> --> <!-- servlet의 response.setHeader("refresh", "3;login.jsp");와 같은 의미! -->
 <title>Insert title here</title>
 </head>
 <body>
@@ -36,5 +37,10 @@
 		</form>
 	</li>
 </ul>
+<a href="auth/login.jsp">로그인하기(상대경로)</a> <!-- 상대경로는 ./이 생략된 것! (현재 위치) -->
+<a href="<%=request.getContextPath() %>/auth/login.jsp">로그인하기(절대경로)</a> <!-- 절대경로에서 위치는 포트번호까지! 따라서 context path를 적어야 함! -->
+<hr>
+<a href="<%=request.getContextPath()%>/emp/emplist.do">직원조회</a>
+<a href="<%=request.getContextPath()%>/emp/empinsert.do">직원등록</a>
 </body>
 </html>

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class RequestTestServlet
  */
-@WebServlet("/requestTest")
+@WebServlet("/requestTest/*") // 내 뒤에 아무거나 와도 괜찮다는 의미: /*
 public class RequestTestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,9 +24,9 @@ public class RequestTestServlet extends HttpServlet {
 		System.out.println("getRequestURI(): " + request.getRequestURI());
 		System.out.println("getLocalPort(): " + request.getLocalPort());
 		System.out.println("getLocalAddr(): " + request.getLocalAddr());
-		System.out.println("getRemoteAddr(): " + request.getRemoteAddr());
+		System.out.println("getRemoteAddr(): " + request.getRemoteAddr()); // 내 사이트를 누가 왔는가
 		System.out.println("getServletPath(): " + request.getServletPath());
-		System.out.println("getPathInfo(): " + request.getPathInfo());
+		System.out.println("getPathInfo(): " + request.getPathInfo()); // 내 문서 이후의 내용 (requestTest/*)일 때 *의 정보를 얻어줌
 		
 		// 요청한 브라우저의 정보: User-Agent
 		Enumeration<String> hs = request.getHeaderNames();

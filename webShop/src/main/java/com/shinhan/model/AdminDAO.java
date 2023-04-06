@@ -16,6 +16,7 @@ public class AdminDAO {
 	PreparedStatement pst; 
 	ResultSet rs; 
 	
+	// day031
 	public AdminVO loginCheck(String email, String pass) {
 		String sql = "select manager_name from admins where email=? and pass=?";
 		AdminVO admin = null;
@@ -37,5 +38,27 @@ public class AdminDAO {
 		}
 
 		return admin;
+	}
+	
+	// day032
+	public int registerAdmin(AdminVO admin) {
+		int result = 0;
+		String sql = "insert into admins(email, pass, manager_name) values(?, ?, ?)";
+		
+		try {
+			conn = OracleUtil.getConnection();
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, admin.getEmail());
+			pst.setString(2, admin.getPass());
+			pst.setString(3, admin.getManager_name());
+			result = pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, pst, conn);
+		}
+		
+		return result;
 	}
 }

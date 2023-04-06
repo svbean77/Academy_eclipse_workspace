@@ -5,7 +5,13 @@ import com.shinhan.vo.AdminVO;
 public class AdminService {
 	AdminDAO dao = new AdminDAO();
 
+	// day031
 	public AdminVO loginCheck(String email, String pass) {
 		return dao.loginCheck(email, pass);
+	}
+	
+	// day032
+	public int registerAdmin(AdminVO admin) {
+		return dao.registerAdmin(admin);
 	}
 }
