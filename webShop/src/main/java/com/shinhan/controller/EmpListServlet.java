@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.shinhan.model.EmpService;
+import com.shinhan.vo.AdminVO;
 import com.shinhan.vo.EmpVO;
 
 @WebServlet("/emp/emplist.do")
@@ -19,6 +21,20 @@ public class EmpListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		AdminVO user = (AdminVO) request.getAttribute("loginUser2"); // request로 저장한 데이터를 가져올 수 없음
+		System.out.println("request user: " + user); // (forward가 아니잖아.. sendRedirect는 브라우저에 내려갔다 새로운 요청을 받은거야)
+		
+		HttpSession browser = request.getSession();
+		user = (AdminVO) browser.getAttribute("loginUser");
+		System.out.println("session user: " + user);
+		
+		if(user == null) {
+			// 로그인하지 않았다면 로그인 창으로 이동하도록!
+			response.sendRedirect("../auth/loginCheck.do");
+			return;
+		}
+		
+		
 		EmpService service = new EmpService();
 		List<EmpVO> emplist = service.selectAll();
 

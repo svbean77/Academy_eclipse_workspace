@@ -1,36 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  
-  <!-- namespace: 이름 공간 -> (XML을 사용하는)여러 기술을 사용하는 경우 tag가 충돌될 수 있음! namespace는 충돌을 없애기 위한 기술이다 (xmlns:이름 <이름:태그>) -->
-  <!-- default namespace: tag에 접두사가 없는 경우 -->
-  
-  <!-- Top level element: display-name, welcome-file-list 등 -->
-  
-  <!-- Servlet 등록: @WebServlet와 같은 의미! -->
-  <servlet>
-  	<servlet-name>servlet1</servlet-name> <!-- 지금은 그냥 지었지만 나중에는 의미 있는 이름으로 지어라 -->
-  	<servlet-class>com.shinhan.controller.FirstServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>servlet1</servlet-name>
-  	<url-pattern>/FirstServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>servlet1</servlet-name>
-  	<url-pattern>/first</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>servlet1</servlet-name>
-  	<url-pattern>/ff</url-pattern>
-  </servlet-mapping>
-  
-  <display-name>webShop</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+
+	<!-- namespace: 이름 공간 -> (XML을 사용하는)여러 기술을 사용하는 경우 tag가 충돌될 수 있음! namespace는 
+		충돌을 없애기 위한 기술이다 (xmlns:이름 <이름:태그>) -->
+	<!-- default namespace: tag에 접두사가 없는 경우 -->
+
+	<!-- Top level element: display-name, welcome-file-list 등 -->
+	<!-- 앱 안의 모든 페이지가 공유하는 파라미터, application에게 파라미터를 전달 -->
+	<!-- day033 ServletContextTest1 -->
+	<context-param>
+		<param-name>DB_userid</param-name>
+		<param-value>hr</param-value>
+	</context-param>
+	<context-param>
+		<param-name>DB_userpass</param-name>
+		<param-value>1234</param-value>
+	</context-param>
+	
+	<!-- day033 InitParamServlet -->
+	<servlet>
+		<servlet-name>initparam</servlet-name>
+		<servlet-class>com.shinhan.controller.InitParamServlet</servlet-class>
+		<init-param>
+			<param-name>address</param-name>
+			<param-value>서울시 강남구</param-value>
+		</init-param>
+		<init-param>
+			<param-name>phone</param-name>
+			<param-value>010-1111-2222</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>initparam</servlet-name>
+		<url-pattern>/initparam</url-pattern>
+	</servlet-mapping>
+
+	<!-- day031 -->
+	<!-- Servlet 등록: @WebServlet와 같은 의미! -->
+	<!-- 외부에서 가져온 서블릿 사용 시 이 방법을 사용! ex. spring에서 가져옴 -->
+	<servlet>
+		<servlet-name>servlet1</servlet-name> <!-- 지금은 그냥 지었지만 나중에는 의미 있는 이름으로 지어라 -->
+		<servlet-class>com.shinhan.controller.FirstServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servlet1</servlet-name>
+		<url-pattern>/FirstServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>servlet1</servlet-name>
+		<url-pattern>/first</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>servlet1</servlet-name>
+		<url-pattern>/ff</url-pattern>
+	</servlet-mapping>
+
+	<display-name>webShop</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+	</welcome-file-list>
+
+	<resource-ref>
+		<description>Oracle Datasource example</description>
+		<res-ref-name>jdbc/myoracle</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
 </web-app>

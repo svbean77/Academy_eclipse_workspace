@@ -61,4 +61,27 @@ public class AdminDAO {
 		
 		return result;
 	}
+	
+	// day033
+	public int dupCheck(String email) {
+		String sql = "select count(*) from admins where email=?";  
+		int count = 0;
+
+		try {
+			conn = OracleUtil.getConnection();
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, email);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				count = rs.getInt(1); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, pst, conn);
+		}
+
+		return count;
+	}
 }

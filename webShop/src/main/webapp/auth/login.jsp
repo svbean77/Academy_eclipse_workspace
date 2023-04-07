@@ -7,8 +7,32 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/login.css" type="text/css">
 <script src='https://kit.fontawesome.com/a076d05399.js' ></script>
+<script src='<%=request.getContextPath() %>/js/jquery-3.6.4.min.js'></script>
+<script>
+$(function(){
+	$("#emailDupCheck").on("click", function(){
+		$.ajax({
+			url:"emailDupCheck.do",
+			method:"get",
+			data:{"email":$("#m_email").val()},
+			success:function(responseData){
+				var message = responseData == 1 ? "이미 존재하는 이메일입니다." : "사용 가능한 이메일입니다.";
+				if(responseData == 1) {
+					$("#m_email").val("");
+					$("#m_email").focus();
+				}
+				$("#message").text(message);
+			},
+			error:function(message){
+				alert(message);
+			}
+		});
+	})
+});
+</script>
 </head>
 <body>
+	<p>${visitor}번째 방문자입니다!</p>
 	<h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
@@ -21,7 +45,9 @@
 				</div>
 				<span>or use your email for registration</span> 
 				<input type="text" name="manager_name" placeholder="Name" /> 
-				<input type="email" name="email" placeholder="Email" />
+				<input type="email" name="email" placeholder="Email" id="m_email"/>
+				<span id="message"></span>
+				<input type="button" id="emailDupCheck" value="중복확인">
 				<input type="password" name="pass" placeholder="Password" />
 				<button>Sign Up</button>
 			</form>
@@ -32,7 +58,7 @@
 		따라서 절대 경로로 작성하고 싶다면 action="/webShop/경로"로 context path부터 작성해야 함!
 		context path를 얻는 방법: < %=request.getContextPath()%> -> 이 결과는 /webShop임! 따라서 절대경로 작성 시 슬래시를 추가하지 않음!
 		 -->
-			<form action="<%=request.getContextPath()%>/auth/loginCheck.do" method="get" enctype="application/x-www-form-urlencoded"> <!-- 정의한 주소를 호출 -->
+			<form action="<%=request.getContextPath()%>/auth/loginCheck.do" method="post" enctype="application/x-www-form-urlencoded"> <!-- 정의한 주소를 호출 -->
 				<h1>Sign in</h1>
 				<div class="social-container">
 					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a

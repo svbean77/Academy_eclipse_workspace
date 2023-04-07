@@ -83,6 +83,21 @@ $(function () {
 	});
 });
 </script>
+<script>
+$(function () {
+	$(".btnDel").on("click", function () {
+		location.href = "empDelete.do?empid=" + $(this).attr("data-del");
+	});
+	$(".btnDel2").on("click", () => {
+		var str = $(this).attr("data-del")
+		str += " -- 화살표는 this가 없음!"
+		alert(str);
+	});
+	
+	
+	function call () {}
+});
+</script>
 <title>Insert title here</title>
 <style>
 </style>
@@ -90,6 +105,8 @@ $(function () {
 <body>
 	<div id="container" class="container mt-3">
 		<h1>직원목록</h1>
+		<div>현재 로그인중: '${loginUser.manager_name}'님</div>
+		<hr>
 		<button onclick="location.href='empinsert.do'" type="button" class="btn btn-outline-success">직원등록(버튼, 상대)</button>
 		<a type="button" class="btn btn-outline-success" href="<%=request.getContextPath() %>/emp/empinsert.do">직원등록(a태그, 절대)</a>
 		<button id="btn1">이름에 S 들어가는 직원</button>
@@ -108,6 +125,7 @@ $(function () {
 		
 		<select id="jobs">
 		</select>
+		<hr>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -122,6 +140,7 @@ $(function () {
 					<th>커미션</th>
 					<th>매니저</th>
 					<th>부서</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -140,6 +159,10 @@ $(function () {
 					<td><%=emp.getCommission_pct()%></td>
 					<td><%=emp.getManager_id()%></td>
 					<td><%=emp.getDepartment_id()%></td>
+					<!-- 삭제할 방법이 일단 두 가지가 있음! 속성으로 empid 보내주기 or inline으로 함수에 아이디 보내주기 -->
+					<td><button class="btnDel" data-del="<%=emp.getEmployee_id()%>">삭제(속성)</button></td>
+					<td><button class="btnDel2" data-del="<%=emp.getEmployee_id()%>">삭제(화살표)</button></td>
+					<%-- <td><button class="btnDel2" onclick="call(<%=emp.getEmployee_id()%>)">삭제(inline)</button></td> --%>
 				</tr>
 				<%
 				}

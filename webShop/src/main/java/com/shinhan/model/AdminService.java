@@ -14,4 +14,9 @@ public class AdminService {
 	public int registerAdmin(AdminVO admin) {
 		return dao.registerAdmin(admin);
 	}
+	
+	// day033
+	public int dupCheck(String email) {
+		return dao.dupCheck(email);
+	}
 }
