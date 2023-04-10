@@ -38,7 +38,7 @@ public class EmpInsertServlet extends HttpServlet {
 	}
 
 	private EmpVO makeEmp(HttpServletRequest request) throws UnsupportedEncodingException {
-		request.setCharacterEncoding("utf-8");
+//		request.setCharacterEncoding("utf-8"); // filter에서 수행 함!
 		// int empid = Integer.parseInt(request.getParameter("employee_id")); // 시퀀스니까 읽을 필요 없어 그냥 빼!
 		String first_name = request.getParameter("first_name");
 		String last_name = request.getParameter("last_name");

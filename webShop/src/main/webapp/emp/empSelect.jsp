@@ -81,6 +81,8 @@ $(function () {
 			}
 		});
 	});
+	
+	
 });
 </script>
 <script>
@@ -97,6 +99,21 @@ $(function () {
 	
 	function call () {}
 });
+
+$(function () {
+	// ajax는 '갔다 와라!'이기 때문에 로그아웃 후 페이지 이동이 없음
+	$("#btnLogout").on("click", function () {
+		$.ajax({ 
+			url: "logout.do",
+			success: function () {
+				alert("로그아웃!");
+			},
+			error: function (message) {
+				alert(message);
+			}
+		});
+	});
+});
 </script>
 <title>Insert title here</title>
 <style>
@@ -106,6 +123,7 @@ $(function () {
 	<div id="container" class="container mt-3">
 		<h1>직원목록</h1>
 		<div>현재 로그인중: '${loginUser.manager_name}'님</div>
+		<button id="btnLogout">로그아웃</button>
 		<hr>
 		<button onclick="location.href='empinsert.do'" type="button" class="btn btn-outline-success">직원등록(버튼, 상대)</button>
 		<a type="button" class="btn btn-outline-success" href="<%=request.getContextPath() %>/emp/empinsert.do">직원등록(a태그, 절대)</a>
