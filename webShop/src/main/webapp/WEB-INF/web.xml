@@ -8,6 +8,16 @@
 		충돌을 없애기 위한 기술이다 (xmlns:이름 <이름:태그>) -->
 	<!-- default namespace: tag에 접두사가 없는 경우 -->
 	
+	<!-- day035 에러 페이지 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/error404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/error500.jsp</location>
+	</error-page>
+	
 	<!-- day034 필터 등록 -->
 	<filter>
 		<filter-name>timecheck</filter-name>

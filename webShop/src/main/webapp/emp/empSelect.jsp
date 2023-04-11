@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+// <%@page 페이지 지시자 % >
 // object이기 때문에 받을 때 형변환 필요
 // 이제 getAttribute를 해야하기 때문에 무조건 servlet을 먼저 실행해야 함~
 List<EmpVO> emplist = (List<EmpVO>) request.getAttribute("empAll"); // 지금은 안배워서 자바를 쓰지만 나중에는 이것도 지울거야!
@@ -122,8 +123,8 @@ $(function () {
 <body>
 	<div id="container" class="container mt-3">
 		<h1>직원목록</h1>
-		<div>현재 로그인중: '${loginUser.manager_name}'님</div>
-		<button id="btnLogout">로그아웃</button>
+		<!-- include 디렉티브는 소스 파일을 합친 후 컴파일함! header에서 선언된 변수를 여기서 사용 가능! -->
+		<%@ include file="../common/header.jsp" %>
 		<hr>
 		<button onclick="location.href='empinsert.do'" type="button" class="btn btn-outline-success">직원등록(버튼, 상대)</button>
 		<a type="button" class="btn btn-outline-success" href="<%=request.getContextPath() %>/emp/empinsert.do">직원등록(a태그, 절대)</a>

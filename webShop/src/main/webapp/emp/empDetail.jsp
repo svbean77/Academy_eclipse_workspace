@@ -34,6 +34,8 @@ input[name='email'],input[name='department_id'],input[name='job_id'],input[name=
 <body>
 	<div id="container">
 		<h1>직원 상세 정보</h1>
+		<%@ include file="../common/header.jsp" %>
+		<hr>
 		<form action="<%=request.getContextPath() %>/emp/empdetail.do" class="mb-3" method="post"> 
 			<table>
 				<tr class="form-floating">

@@ -32,7 +32,7 @@ public class LoginCheckFilter extends HttpFilter implements Filter {
 		System.out.println(req.getServletPath());
 		
 		// 선생님 풀이
-//		if(req.getServletPath().equals("/auth/loginCheck.do")) {}
+//		if(req.getServletPath().equals("/auth/loginCheck.do") || req.getServletPath().equals("/auth/signup.do") || req.getServletPath.equaps("/auth/emailDupCheck.do")) {}
 //		else {
 //			if (user == null) {
 //				res.sendRedirect(req.getContextPath() + "/auth/loginCheck.do");
@@ -42,7 +42,7 @@ public class LoginCheckFilter extends HttpFilter implements Filter {
 //		chain.doFilter(request, response);
 		
 		// 내 풀이
-		if (uri.contains("loginCheck.do") || user != null || uri.equals(req.getContextPath() + "/")) {
+		if (uri.contains("loginCheck.do") || uri.contains("signup.do") || uri.contains("emailDupCheck.do") || user != null || uri.equals(req.getContextPath() + "/")) {
 			chain.doFilter(request, response);
 		} else {
 			res.setContentType("text/html;charset=utf-8");

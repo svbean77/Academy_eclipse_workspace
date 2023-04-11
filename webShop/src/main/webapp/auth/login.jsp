@@ -17,6 +17,8 @@ $(function(){
 			data:{"email":$("#m_email").val()},
 			success:function(responseData){
 				var message = responseData == 1 ? "이미 존재하는 이메일입니다." : "사용 가능한 이메일입니다.";
+				console.log(responseData);
+				console.log(typeof(responseData));
 				if(responseData == 1) {
 					$("#m_email").val("");
 					$("#m_email").focus();

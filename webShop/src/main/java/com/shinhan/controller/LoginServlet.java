@@ -3,6 +3,8 @@ package com.shinhan.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -17,29 +19,30 @@ import com.shinhan.model.AdminService;
 import com.shinhan.vo.AdminVO;
 
 // 지금 경로는 http://localhost:포트번호/contextPath 까지! 따라서 슬래시(/)부터 넣어줘야 함!
-@WebServlet("/auth/loginCheck.do") // URL mapping 주소를 정의
+// @WebServlet("/auth/loginCheck.do") // URL mapping 주소를 정의
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ServletContext app; // HttpServlet에도 getServletContext 함수가 존재하기 때문에 request 빼도 됨
 	
 	// day33
 	// 주소창에 .jsp가 보에는게 싫어! -> get을 위임하는 방법으로 변경
 	protected void doGet (HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		app = getServletContext();
+		// 몇 번째 방문자인지!!!
+		// 서버가 꺼지면 다시 null이기 때문에 정말 방문자를 원한다면 따로 파일 등에 데이터를 저장해야 함
+//		Object obj = (Integer) app.getAttribute("visitor");
+//		int cnt = 1;
+//		
+//		if(obj != null) {
+//			cnt = (Integer) obj;
+//			cnt++;
+//		}
+//		app.setAttribute("visitor", cnt);
+		
 		RequestDispatcher rd;
 		rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);
-		
-		// 몇 번째 방문자인지!!!
-		// 서버가 꺼지면 다시 null이기 때문에 정말 방문자를 원한다면 따로 파일 등에 데이터를 저장해야 함
-		ServletContext app = request.getServletContext();
-		Object obj = (Integer) app.getAttribute("visitor");
-		int cnt = 1;
-		
-		if(obj != null) {
-			cnt = (Integer) obj;
-			cnt++;
-		}
-		app.setAttribute("visitor", cnt);
 	}
 
 	// 주소창에 .jsp 보이는게 싫어! -> signin을 doPost로 수정
@@ -53,6 +56,26 @@ public class LoginServlet extends HttpServlet {
 		AdminVO admin = service.loginCheck(email, pass);
 
 		System.out.println(admin == null ? "로그인 실패.. " : admin);
+		
+		Object obj = app.getAttribute("userList");
+		List<AdminVO> userList = null;
+		if(admin != null) {
+			if(obj == null) {
+				userList = new ArrayList<>();
+			}
+			else {
+				userList = (List<AdminVO>) obj;
+			}
+			userList.add(admin);
+			app.setAttribute("userList", userList);
+			
+			System.out.println("*** 현재 접속자 ***");
+			for(AdminVO vo : userList) {
+				System.out.println(vo);
+			}
+			System.out.println("****************");
+		}
+		
 
 		// 응답 문서 만들기: header + ResponseBody에 문자열을 출력하기 -> void니까 리턴은 아니고 그냥 문서에 출력만(print, write)
 		response.setContentType("text/html;charset=utf-8"); // 한글 깨지지 않기 위한 인코딩 설정

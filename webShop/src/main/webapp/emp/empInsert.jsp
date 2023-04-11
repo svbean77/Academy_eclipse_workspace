@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
+<%
+// errorPage="errorPage.jsp"위의 page에 이거 추가하면 내가 만든 에러 페이지로 이동, 이거 배면 web.xml에서 매핑한 페이지로 이동
+// 나는 자바의 주석
+// 자바 코드 작성 -> service의 코드에 삽입된다.
+String subject = "JSP코드";
+
+int age = Integer.parseInt(request.getParameter("age"));
+%>
+<%!
+// 자바 코드 작성, 선언부! -> 서블릿 클래스 멤버로 변환
+int score = 100;
+public int add(int a, int b) {
+	return a + b;
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +30,18 @@
 <body>
 	<div>
 		<h1>직원정보 입력</h1>
+		<%-- 나는 JSP의 주석 --%>
+		<!-- 나는 HTML의 주석 -->
+		<!-- service의 out.write에 들어간다. -->
+		subject: <%=subject %> <br>
+		score: <%=score %> <br>
+		add(100, 200): <%=add(100, 200) %>  <br>
+		
+		age: <%=age %>
+		
+		<hr>
+		<%@ include file="../common/header.jsp" %>
+		<hr>
 		<form action="<%=request.getContextPath() %>/emp/empinsert.do" class="mb-3" method="post"> 
 		<!-- 
 		직원등록 페이지로 이동하는 데 이미 get 방식을 사용함 (index.jsp)
