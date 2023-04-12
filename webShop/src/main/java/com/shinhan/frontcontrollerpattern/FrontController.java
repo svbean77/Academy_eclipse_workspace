@@ -34,6 +34,9 @@ public class FrontController extends HttpServlet {
 		case "/auth/loginCheck.do":
 			controller = new LoginController();
 			break;
+		case "/auth/logout.do":
+			controller = new LogoutController();
+			break;
 		case "/auth/signup.do":
 			controller = new SignUpController();
 			break;

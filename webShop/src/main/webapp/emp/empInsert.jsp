@@ -6,7 +6,7 @@
 // 자바 코드 작성 -> service의 코드에 삽입된다.
 String subject = "JSP코드";
 
-int age = Integer.parseInt(request.getParameter("age"));
+// int age = Integer.parseInt(request.getParameter("age"));
 %>
 <%!
 // 자바 코드 작성, 선언부! -> 서블릿 클래스 멤버로 변환
@@ -20,15 +20,12 @@ public int add(int a, int b) {
 <head>
 <meta charset="UTF-8">
 <title>직원 정보 등록</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
+<%@ include file="../common/commonfiles.jsp" %>
 </head>
 <body>
 	<div>
+	<%@ include file="../common/header.jsp" %>
+		<hr>
 		<h1>직원정보 입력</h1>
 		<%-- 나는 JSP의 주석 --%>
 		<!-- 나는 HTML의 주석 -->
@@ -37,11 +34,10 @@ public int add(int a, int b) {
 		score: <%=score %> <br>
 		add(100, 200): <%=add(100, 200) %>  <br>
 		
-		age: <%=age %>
+		<%-- age: <%=age %> --%>
 		
 		<hr>
-		<%@ include file="../common/header.jsp" %>
-		<hr>
+		
 		<form action="<%=request.getContextPath() %>/emp/empinsert.do" class="mb-3" method="post"> 
 		<!-- 
 		직원등록 페이지로 이동하는 데 이미 get 방식을 사용함 (index.jsp)

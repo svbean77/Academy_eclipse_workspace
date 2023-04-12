@@ -11,10 +11,7 @@ ${emp.employee_id}, 원래 방식: <%=request.getAttribute("emp").getEmployee_id
 <head>
 <meta charset="UTF-8">
 <title>직원 상세 정보</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<%@ include file="../common/commonfiles.jsp" %>
 <style>
 #container {
 	margin: 10px auto;
@@ -33,8 +30,8 @@ input[name='email'],input[name='department_id'],input[name='job_id'],input[name=
 </head>
 <body>
 	<div id="container">
-		<h1>직원 상세 정보</h1>
 		<%@ include file="../common/header.jsp" %>
+		<h1>직원 상세 정보</h1>
 		<hr>
 		<form action="<%=request.getContextPath() %>/emp/empdetail.do" class="mb-3" method="post"> 
 			<table>
