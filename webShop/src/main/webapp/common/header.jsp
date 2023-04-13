@@ -31,17 +31,17 @@ $(function () {
 </head>
 <body>
 <div style="border:5px dotted pink;">
-	<div>현재 로그인중: '${loginUser.manager_name == null? "guest" : loginUser.manager_name}'님</div>
-	<div>(EL문법 1) 세션에서 로그인 사용자 읽기: '${sessionScope.loginUser}'님</div>
-	<div>(EL문법 2) 세션에서 로그인 사용자 읽기: '${loginUser}'님</div>
-	<div>(ScriptLet)script방법 로그인 사용자 읽기: '<%=session.getAttribute("loginUser") %>'님</div>
 	<c:if test="${loginUser != null}">
+		<div>현재 로그인중: '${loginUser.manager_name == null? "guest" : loginUser.manager_name}'님</div>
+		<div>(EL문법 1) 세션에서 로그인 사용자 읽기: '${sessionScope.loginUser}'님</div>
+		<div>(EL문법 2) 세션에서 로그인 사용자 읽기: '${loginUser}'님</div>
+		<div>(ScriptLet)script방법 로그인 사용자 읽기: '<%=session.getAttribute("loginUser") %>'님</div>
+		<img src="${path}/uploads/${loginUser.pic}" width="200">
 		<button id="btnLogout">로그아웃</button>
 	</c:if>
 	<c:if test="${loginUser == null }">
 		<button onclick="location.href='${path}/auth/loginCheck.do'">로그인</button>
 	</c:if>
-	<img src="${path}/images/fantasy.jpg" width="200">
 </div>
 </body>
 </html>

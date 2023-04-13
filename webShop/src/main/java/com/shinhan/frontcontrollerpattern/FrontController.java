@@ -55,6 +55,16 @@ public class FrontController extends HttpServlet {
 		case "/emp/empDelete.do":
 			controller = new EmpDeleteController();
 			break;
+		case "/jstl.do":
+			controller = new JSTLController();
+			break;
+		case "/upload.do":
+			controller = new UploadController();
+			break;
+		case "/download.do":
+			data.put("response", response);
+			controller = new DownloadController();
+			break;
 		default:
 			break;
 		}
@@ -80,6 +90,9 @@ public class FrontController extends HttpServlet {
 		}
 		else if (page.indexOf("responseBody:") >= 0) {
 			response.getWriter().append(page.substring(13)); // 이거 자체가 success의 responseData임!
+		}
+		else if (page.indexOf("download") >= 0) {
+			 response.getWriter().append("download OK~"); // 이미 페이지가 있는데(DownloadController에서 만듦) 또 쓰라고 하니까 오류가 생기지! 이 코드를 지워
 		}
 		else {
 			RequestDispatcher rd;

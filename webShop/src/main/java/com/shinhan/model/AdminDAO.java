@@ -18,7 +18,7 @@ public class AdminDAO {
 	
 	// day031
 	public AdminVO loginCheck(String email, String pass) {
-		String sql = "select manager_name from admins where email=? and pass=?";
+		String sql = "select * from admins where email=? and pass=?";
 		AdminVO admin = null;
 
 		try {
@@ -29,7 +29,12 @@ public class AdminDAO {
 			rs = pst.executeQuery();
 
 			while (rs.next()) {
-				admin = new AdminVO(email, rs.getString(1), pass);
+				admin = new AdminVO(email, rs.getString("manager_name"), pass, rs.getString("pic"));
+				// 순서를 확실히 모른다면 직접 주는거로
+				admin.setEmail(email);
+				admin.setManager_name(rs.getString("manager_name"));
+				admin.setPass(pass);
+				admin.setPic(rs.getString("pic"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,7 +48,7 @@ public class AdminDAO {
 	// day032
 	public int registerAdmin(AdminVO admin) {
 		int result = 0;
-		String sql = "insert into admins(email, pass, manager_name) values(?, ?, ?)";
+		String sql = "insert into admins(email, pass, manager_name, pic) values(?, ?, ?, ?)";
 		
 		try {
 			conn = OracleUtil.getConnection();
@@ -51,6 +56,7 @@ public class AdminDAO {
 			pst.setString(1, admin.getEmail());
 			pst.setString(2, admin.getPass());
 			pst.setString(3, admin.getManager_name());
+			pst.setString(4, admin.getPic());
 			result = pst.executeUpdate();
 			
 		} catch (SQLException e) {

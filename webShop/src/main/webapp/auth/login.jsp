@@ -10,6 +10,9 @@
 <script src='<%=request.getContextPath() %>/js/jquery-3.6.4.min.js'></script>
 <script>
 $(function(){
+	var aa = "${10 + 20}";
+	var bb = "${pageContext.request.contextPath}";
+	
 	$("#emailDupCheck").on("click", function(){
 		$.ajax({
 			url:"emailDupCheck.do",
@@ -38,7 +41,7 @@ $(function(){
 	<h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
-			<form action="<%=request.getContextPath()%>/auth/signup.do" method="post">
+			<form action="<%=request.getContextPath()%>/auth/signup.do" method="post" enctype="multipart/form-data">
 				<h1>Create Account</h1>
 				<div class="social-container">
 					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a> <a
@@ -51,6 +54,7 @@ $(function(){
 				<span id="message"></span>
 				<input type="button" id="emailDupCheck" value="중복확인">
 				<input type="password" name="pass" placeholder="Password" />
+				<input type="file" name="pic">
 				<button>Sign Up</button>
 			</form>
 		</div>

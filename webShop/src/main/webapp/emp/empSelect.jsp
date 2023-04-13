@@ -3,6 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
 // <%@page 페이지 지시자 % >
 // object이기 때문에 받을 때 형변환 필요
@@ -131,36 +133,61 @@ $(function () {
 		
 		<select id="jobs">
 		</select>
+		<!-- day037 파일 다운로드 -->
+		 <form method="post"  action="${path }/downloadTest/result.jsp" >
+		 	<input type=hidden  name="param1" value="desert-fox-3382059__480.jpg" /> <br>
+		 	<input type=hidden  name="param2" value="fantasy.jpg" /> <br>
+ 	  		<input type ="submit" value="day037 이미지 다운로드">	 
+		 </form> 
+		 <!-- day037 모달 -->
+		 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">직원등록(modal)</button>
+		 <%@ include file="empInsertModal.jsp" %>
 		<hr>
 		<table class="table table-hover">
 			<thead>
 				<tr>
+					<th>순서</th>
 					<th>직원번호</th>
 					<th>이름</th>
 					<th>성</th>
 					<th>이메일</th>
+					<th>sub이메일</th>
+					<th>이메일 @앞 아이디</th>
 					<th>전화번호</th>
 					<th>입사일</th>
 					<th>직책</th>
 					<th>급여</th>
+					<th>누적급여</th>
 					<th>커미션</th>
 					<th>매니저</th>
 					<th>부서</th>
-					<th></th>
+					<th>삭제</th>
+					<th>X</th>
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${empAll}" var="emp">
-				<tr>
+			<c:set var="totalSalary" value="0"/>
+			<c:forEach items="${empAll}" var="emp" varStatus="status">
+			<c:set var="totalSalary" value="${totalSalary + emp.salary}"/>
+				<%-- <tr style="background-color:${status.first ? 'LavenderBlush' : status.last ? 'LemonChiffon' : 'LightGray'}"> 내 풀이: 3항 두 번--%>
+				<tr style="background-color:${status.first || status.last ? 'LemonChiffon' : 'LightGray'}"> <!-- 선생님 풀이 -->
+					<td>${status.count}</td>
 					<td><a href="${path}/emp/empdetail.do?empid=${emp.employee_id}">${emp.employee_id }</a></td>
 					<td><a href="${path}/emp/empdetail.do?empid=${emp.employee_id}">${emp.first_name}</a></td>
-					<td>${emp.last_name}</td>
+					<td style="color:${fn:length(emp.last_name) > 5 ? 'red' : 'blue'}">${emp.last_name}</td>
 					<td>${emp.email}</td>
+					<td>${fn:substring(emp.email, 0, 3)}</td>
+					<%-- 
+					<c:set value="${fn:indexOf(emp.email, '@') }" var="idx"/>
+					<td>${idx == -1 ? emp.email : fn:substring(emp.email, 0, idx)}</td> 
+					내 방법--%>
+					<td>${fn:substring(emp.email, 0, fn:indexOf(emp.email, "@"))}</td> <!-- 유진언니 방법 -->
 					<td>${emp.phone_number}</td>
-					<td>${emp.hire_date}</td>
+					<td><fmt:formatDate value="${emp.hire_date}" pattern="yyyy/MM/dd"/></td>
 					<td>${emp.job_id}</td>
-					<td>${emp.salary}</td>
-					<td>${emp.commission_pct}</td>
+					<td><fmt:formatNumber value="${emp.salary}" groupingUsed="true"></fmt:formatNumber></td>
+					<td>${totalSalary}</td>
+					<td>${emp.commission_pct}: <fmt:formatNumber value="${emp.commission_pct}" type="percent"></fmt:formatNumber></td>
 					<td>${emp.manager_id}</td>
 					<td>${emp.department_id}</td>
 					<!-- 삭제할 방법이 일단 두 가지가 있음! 속성으로 empid 보내주기 or inline으로 함수에 아이디 보내주기 -->
