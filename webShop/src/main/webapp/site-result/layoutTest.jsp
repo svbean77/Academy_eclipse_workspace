@@ -146,9 +146,12 @@
 					<li><a href="#"> <span id="quick-icon1"></span>
 							<p>평화기행</p>
 					</a></li>
-					<li><a href="#"> <span id="quick-icon2"></span>
+					<li>
+						<a href="#"> 
+							<span id="quick-icon2"></span>
 							<p>힐링 워크샵</p>
-					</a></li>
+						</a>
+					</li>
 					<li><a href="#"> <span id="quick-icon3"></span>
 							<p>문의하기</p>
 					</a></li>
