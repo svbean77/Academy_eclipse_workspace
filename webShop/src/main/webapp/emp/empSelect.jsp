@@ -135,7 +135,7 @@ $(function () {
 		</select>
 		<!-- day037 파일 다운로드 -->
 		 <form method="post"  action="${path }/downloadTest/result.jsp" >
-		 	<input type=hidden  name="param1" value="desert-fox-3382059__480.jpg" /> <br>
+		 	<input type=hidden  name="param1" value="fox1.jpg" /> <br>
 		 	<input type=hidden  name="param2" value="fantasy.jpg" /> <br>
  	  		<input type ="submit" value="day037 이미지 다운로드">	 
 		 </form> 

@@ -71,11 +71,23 @@ public int add(int a, int b) {
 				</tr>
 				<tr>
 					<td>부서</td>
-					<td><input type="number" name="department_id" value="60"></td>
+					<td>
+					<select name="department_id">
+						<c:forEach items="${deptList}" var="dept" varStatus="status">
+							<option value="${dept.department_id}">${status.count} - ${dept.department_name}</option>
+						</c:forEach>
+					</select>
+					</td>
 				</tr>
 				<tr>
-					<td>메니져</td>
-					<td><input type="number" name="manager_id" value="100"></td>
+					<td>매니저</td>
+					<td>
+					<select name="manager_id">
+						<c:forEach items="${managerList}" var="manager">
+							<option value="${manager.employee_id}">${manager.first_name} ${manager.last_name }</option>
+						</c:forEach>
+					</select>
+					</td>
 				</tr>
 				<tr>
 					<td>커미션</td>
@@ -88,8 +100,13 @@ public int add(int a, int b) {
 				</tr>
 				<tr>
 					<td>직급</td>
-					<td><input type="text" name="job_id" required="required"
-						value="IT_PROG"></td>
+					<td>
+						<select name="job_id">
+							<c:forEach items="${jobList}" var="job">
+								<option value="${job.job_id}">${job.job_title}</option>
+							</c:forEach>
+						</select>
+					</td>
 				</tr>
 				<tr style="text-align: center;">
 					<td colspan="2"><input type="submit" value="직원등록"></td>

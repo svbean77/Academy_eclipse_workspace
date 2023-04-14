@@ -1,17 +1,19 @@
+<%@page import="com.shinhan.model.CompanyService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+// 어쩔 수 없이 modal은 컨트롤러를 타지 않기 때문에 일단 이 방법으로.. 나중에 더 배우면 할 수 있을지도
+CompanyService service = new CompanyService();
+request.setAttribute("deptList", service.deptSelectAll());
+request.setAttribute("managerList", service.managerSelectAll());
+request.setAttribute("jobList", service.jobSelectAll());
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-	$(function () {
-		$("#insertEmpForm").on("submit", function () {
-			alert("등록!");
-		});
-	});
-</script>
 </head>
 <body>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -22,7 +24,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="${path }/emp/empinsert.do" class="mb-3" method="post" id="insertEmpForm"> 
+        <form action="${path }/emp/empinsert.do" class="mb-3" method="post"> 
 		<!-- 
 		직원등록 페이지로 이동하는 데 이미 get 방식을 사용함 (index.jsp)
 		따라서 하는 역할이 다르기 때문에 방법을 다르게 servlet에게 가는 방법은 post로 변경! 
@@ -55,11 +57,23 @@
 				</tr>
 				<tr>
 					<td>부서</td>
-					<td><input type="number" name="department_id" value="60"></td>
+					<td>
+						<select name="department_id">
+						<c:forEach items="${deptList}" var="dept">
+							<option value="${dept.department_id}">${dept.department_name}</option>
+						</c:forEach>
+					</select>
+					</td>
 				</tr>
 				<tr>
-					<td>메니져</td>
-					<td><input type="number" name="manager_id" value="100"></td>
+					<td>매니저</td>
+					<td>
+					<select name="manager_id">
+						<c:forEach items="${managerList}" var="manager">
+							<option value="${manager.employee_id}">${manager.first_name} ${manager.last_name }</option>
+						</c:forEach>
+					</select>
+					</td>
 				</tr>
 				<tr>
 					<td>커미션</td>
@@ -72,8 +86,13 @@
 				</tr>
 				<tr>
 					<td>직급</td>
-					<td><input type="text" name="job_id" required="required"
-						value="IT_PROG"></td>
+					<td>
+						<select name="job_id">
+							<c:forEach items="${jobList}" var="job">
+								<option value="${job.job_id}">${job.job_title}</option>
+							</c:forEach>
+						</select>
+					</td>
 				</tr>
 				<tr style="text-align: center;">
 					<td colspan="2"><input type="submit" value="직원등록"></td>

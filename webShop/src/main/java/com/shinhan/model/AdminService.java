@@ -1,5 +1,7 @@
 package com.shinhan.model;
 
+import java.util.List;
+
 import com.shinhan.vo.AdminVO;
 
 public class AdminService {
@@ -18,5 +20,11 @@ public class AdminService {
 	// day033
 	public int dupCheck(String email) {
 		return dao.dupCheck(email);
+	}
+	
+	// day038
+	public List<AdminVO> adminsPicture() {
+		System.out.println(dao.adminsPicture());
+		return dao.adminsPicture();
 	}
 }

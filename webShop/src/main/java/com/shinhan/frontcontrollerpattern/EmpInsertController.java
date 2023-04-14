@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.shinhan.model.CompanyService;
 import com.shinhan.model.EmpService;
 import com.shinhan.util.DateUtil;
 import com.shinhan.vo.EmpVO;
@@ -24,6 +25,14 @@ public class EmpInsertController implements CommonControllerInterface {
 			String message = service.empInsert(emp);
 			
 			page = "redirect:emplist.do";
+		} 
+		// day038
+		else {
+			// 부서, 직책, 매니저를 선택! (입력이 아니고)
+			CompanyService service = new CompanyService();
+			request.setAttribute("deptList", service.deptSelectAll());
+			request.setAttribute("managerList", service.managerSelectAll());
+			request.setAttribute("jobList", service.jobSelectAll());
 		}
 		
 		return page;

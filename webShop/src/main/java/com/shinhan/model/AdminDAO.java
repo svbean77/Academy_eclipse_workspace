@@ -1,11 +1,12 @@
 package com.shinhan.model;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.shinhan.util.OracleUtil;
 import com.shinhan.vo.AdminVO;
@@ -13,6 +14,7 @@ import com.shinhan.vo.AdminVO;
 
 public class AdminDAO {
 	Connection conn; 
+	Statement st;
 	PreparedStatement pst; 
 	ResultSet rs; 
 	
@@ -89,5 +91,37 @@ public class AdminDAO {
 		}
 
 		return count;
+	}
+	
+	// day038
+	public List<AdminVO> adminsPicture() {
+		String result = "";
+		String sql = """
+				select * from (
+				select * from admins order by manager_name desc)
+				where rownum <= 3
+				""";
+		List<AdminVO> adminList = new ArrayList<>();
+		
+		conn = OracleUtil.getConnection();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			
+			while (rs.next()) {
+				AdminVO admin = new AdminVO();
+				admin.setEmail(rs.getString("Email"));
+				admin.setManager_name(rs.getString("Manager_name"));
+				admin.setPass(rs.getString("Pass"));
+				admin.setPic(rs.getString("Pic"));
+				
+				adminList.add(admin);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, st, conn);
+		}
+		return adminList;
 	}
 }

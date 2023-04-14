@@ -12,7 +12,7 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 
 
-//@WebFilter("/*") 
+@WebFilter("/*") 
 public class TimeCheckFilter extends HttpFilter implements Filter {
 
     public TimeCheckFilter() {

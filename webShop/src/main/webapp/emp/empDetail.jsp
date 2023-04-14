@@ -65,11 +65,23 @@ input[name='email'],input[name='department_id'],input[name='job_id'],input[name=
 				</tr>
 				<tr>
 					<td>부서</td>
-					<td><input type="number" name="department_id"  value="${emp.department_id}"></td>
+					<td>
+						<select name="department_id">
+						<c:forEach items="${deptList}" var="dept">
+							<option value="${dept.department_id}" ${emp.department_id == dept.department_id ? "selected" : ""}>${dept.department_name}</option>
+						</c:forEach>
+					</select>
+					</td>
 				</tr>
 				<tr>
-					<td>메니져</td>
-					<td><input type="number" name="manager_id" value="${emp.manager_id}"></td>
+					<td>매니저</td>
+					<td>
+						<select name="manager_id">
+						<c:forEach items="${managerList}" var="manager">
+							<option value="${manager.employee_id}" ${emp.manager_id == manager.employee_id ? "selected" : ""}>${manager.first_name} ${manager.last_name }</option>
+						</c:forEach>
+					</select>
+					</td>
 				</tr>
 				<tr>
 					<td>커미션</td>
@@ -81,7 +93,13 @@ input[name='email'],input[name='department_id'],input[name='job_id'],input[name=
 				</tr>
 				<tr>
 					<td>직급</td>
-					<td><input type="text" name="job_id" required value="${emp.job_id}"></td>
+					<td>
+						<select name="job_id">
+							<c:forEach items="${jobList}" var="job">
+								<option value="${job.job_id}" ${emp.job_id == job.job_id ? "selected" : ""}>${job.job_title}</option>
+							</c:forEach>
+						</select>
+					</td>
 				</tr>
 				<tr style="text-align: center;">
 					<td colspan="2"><input type="submit" value="정보 수정"></td>

@@ -29,6 +29,7 @@ public class FrontController extends HttpServlet {
 		Map<String, Object> data = new HashMap<>();
 		data.put("method", request.getMethod()); // get 방식 or post 방식 넣어주기
 		data.put("request", request);
+		data.put("response", response);
 		
 		switch (path) {
 		case "/auth/loginCheck.do":
@@ -55,6 +56,7 @@ public class FrontController extends HttpServlet {
 		case "/emp/empDelete.do":
 			controller = new EmpDeleteController();
 			break;
+		// day037
 		case "/jstl.do":
 			controller = new JSTLController();
 			break;
@@ -62,8 +64,17 @@ public class FrontController extends HttpServlet {
 			controller = new UploadController();
 			break;
 		case "/download.do":
-			data.put("response", response);
 			controller = new DownloadController();
+			break;
+		// day038
+		case "/site-result/layout.do":
+			controller = new LayoutTestController();
+			break;
+		case "/site-result/jobsAjax.do":
+			controller = new JobsAjaxController();
+			break;
+		case "/site-result/pictureAjax.do":
+			controller = new PictureAjaxController();
 			break;
 		default:
 			break;
@@ -75,14 +86,14 @@ public class FrontController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		HttpSession session = request.getSession();
-		
-		// 세션에 저장할 데이터가 있는가? 등의 모든 처리를 front controller에서 하고싶다!
-		for(String key: data.keySet()) {
-			if(key.equals("loginUser")) {
-				session.setAttribute(key, data.get(key));
-			}
-		}
+//		HttpSession session = request.getSession();
+//		
+//		// 세션에 저장할 데이터가 있는가? 등의 모든 처리를 front controller에서 하고싶다!
+////		for(String key: data.keySet()) {
+////			if(key.equals("loginUser")) {
+////				session.setAttribute(key, data.get(key));
+////			}
+////		}
 		
 		// 처리 다 했으면 페이지 처리
 		if(page.indexOf("redirect:") >= 0) {
